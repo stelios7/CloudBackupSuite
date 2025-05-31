@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudBackupCore", "CloudBackupCore", "{89191152-2820-7078-FEA0-B6293E005F34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cloud Backup Core", "CloudBackupCore\Cloud Backup Core.csproj", "{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudUpdater", "CloudUpdater\CloudUpdater.csproj", "{15F29A43-3451-480B-809D-8356FD4C3870}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Debug|x64.ActiveCfg = Debug|x64
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Debug|x64.Build.0 = Debug|x64
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Debug|x86.Build.0 = Debug|Any CPU
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Release|x64.ActiveCfg = Release|x64
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Release|x64.Build.0 = Release|x64
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Release|x86.ActiveCfg = Release|Any CPU
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6}.Release|x86.Build.0 = Release|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Debug|x64.Build.0 = Debug|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Debug|x86.Build.0 = Debug|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Release|x64.ActiveCfg = Release|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Release|x64.Build.0 = Release|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Release|x86.ActiveCfg = Release|Any CPU
+		{15F29A43-3451-480B-809D-8356FD4C3870}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A468E13A-2299-45AB-8FFB-83A9E9AF4EE6} = {89191152-2820-7078-FEA0-B6293E005F34}
+	EndGlobalSection
+EndGlobal
