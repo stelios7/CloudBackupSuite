@@ -1,0 +1,192 @@
+﻿<Window x:Class="Cloud_Backup_Core.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:Cloud_Backup_Core"
+		xmlns:converters="clr-namespace:Cloud_Backup_Core.Helpers"
+		xmlns:settings="clr-namespace:Cloud_Backup_Core.Views"
+		mc:Ignorable="d"
+		Style="{StaticResource MainWindowStyle}"
+		Title="Cloud Backup Core"
+		Height="450"
+		Width="400"
+		MaxHeight="450"
+		MaxWidth="400"
+		MinHeight="450"
+		MinWidth="400"
+		ResizeMode="CanResize"
+		>
+	<Window.Resources>
+		<!--	#####	CONVERTERS	#####	-->
+
+		<converters:BackupStatusToBoolConverter x:Key="BackupStatusToBoolConverter"/>
+		<converters:BackupStatusToVisibilityConverter x:Key="BackupStatusToVisibilityConverter"/>
+		<converters:BackupStatusToStringConverter x:Key="BackupStatusToStringConverter"/>
+		<converters:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
+		<converters:ProgressConverter x:Key="ProgressConverter"/>
+
+		<!--	Status Bar	Background #D6BD98	-->
+		<!--	Status Bar	Foreground #2C3930	-->
+		<!--	Label		Background #DCD7C9	-->
+		<!--	Window		Background #DCD7C9	-->
+
+		<!--	#####	Status Label	#####	-->
+		<Style TargetType="Label"
+				x:Key="MainLabel">
+			<Setter Property="VerticalContentAlignment"
+					Value="Center"/>
+			<Setter Property="HorizontalContentAlignment"
+					Value="Stretch"/>
+			<Setter Property="Background"
+					Value="#DCD7C9"/>
+			<Setter Property="FontSize"
+					Value="14"/>
+			<Setter Property="Padding"
+					Value="0"/>
+			<Setter Property="Margin"
+					Value="0"/>
+		</Style>
+		<Style TargetType="Label"
+				x:Key="StatusLabel">
+			<Setter Property="Margin"
+					Value="0"/>
+			<Setter Property="Padding"
+					Value="0"/>
+			<Setter Property="VerticalContentAlignment"
+					Value="Center"/>
+			<Setter Property="HorizontalContentAlignment"
+					Value="Stretch"/>
+		</Style>
+
+		<!--	#####	StatusBar	#####	-->
+		<Style TargetType="StatusBar">
+			<Setter Property="Background"
+					Value="{StaticResource SecondaryButtonBrush}"/>
+			<Setter Property="FontSize"
+					Value="12"/>
+			<Setter Property="Foreground"
+					Value="#2C3930"/>
+			<Setter Property="Margin"
+					Value="0"/>
+			<Setter Property="Padding"
+					Value="0"/>
+		</Style>
+
+	</Window.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="22"/>
+			<RowDefinition Height="22"/>
+			<RowDefinition Height="25"/>
+		</Grid.RowDefinitions>
+		<StackPanel Orientation="Horizontal"
+				Grid.Row="0">
+			<Button Content="Settings"
+					Command="{Binding OpenLocalSettings_command}"
+					Style="{StaticResource MenuBarButton2}"/>
+			<Button Content="FTP"
+					Command="{Binding OpenFtpSettings_command}"
+					Style="{StaticResource MenuBarButton2}"/>
+
+			<Button Content="SQL Backup"
+					Command="{Binding OpenBackupSettings_command}"
+					Style="{StaticResource MenuBarButton2}"/>
+			<TextBlock x:Name="labelAppVersion"
+					Text="{Binding AppVersion}"
+					FontSize="10"
+					   Margin="5 0"
+					Padding="0"
+					VerticalAlignment="Center"
+					   HorizontalAlignment="Right"
+					   Foreground="{StaticResource TextBrush}"
+					   FontWeight="Bold"/>
+		</StackPanel>
+		<!--<StackPanel Grid.Row="1">
+			<StackPanel Grid.Column="0"
+					Margin="5"
+					Width="200">
+				<Button Content="Force Upload"
+						Margin="5"
+						Width="auto"
+						Height="30"
+						Command="{Binding ForceUpload_command}"
+						Visibility="{Binding BackupStatus, Converter={StaticResource BackupStatusToVisibilityConverter}}"
+						IsEnabled="{Binding BackupStatus, Converter={StaticResource BackupStatusToBoolConverter}}"
+						Style="{StaticResource ResourceKey=StyledButton}"/>
+				<Button Content="Start Sync"
+						Margin="5"
+						Width="auto"
+						Height="30"
+						Command="{Binding StartSync_command}"
+						Style="{StaticResource ResourceKey=StyledButton}"/>
+				<Button Content="Pause Sync"
+						Margin="5"
+						Width="auto"
+						Height="30"
+						Command="{Binding PauseSync_command}"
+						Style="{StaticResource ResourceKey=StyledButton}"/>
+			</StackPanel>
+		</StackPanel>-->
+		<StackPanel Grid.Row="1">
+			<StackPanel Grid.Column="0">
+				<Button Content="Force Upload"
+						Command="{Binding ForceUpload_command}"
+						Visibility="{Binding BackupStatus, Converter={StaticResource BackupStatusToVisibilityConverter}}"
+						IsEnabled="{Binding BackupStatus, Converter={StaticResource BackupStatusToBoolConverter}}"
+						Style="{StaticResource ResourceKey=PrimaryButton}"/>
+				<Button Content="Start Sync"
+						Command="{Binding StartSync_command}"
+						Style="{StaticResource ResourceKey=PrimaryButton}"/>
+				<Button Content="Pause Sync"
+						Command="{Binding PauseSync_command}"
+						Style="{StaticResource ResourceKey=PrimaryButton}"/>
+			</StackPanel>
+		</StackPanel>
+
+		<StatusBar Grid.Row="2">
+			<StatusBarItem>
+				<TextBlock Text="Status:"
+						VerticalAlignment="center"/>
+			</StatusBarItem>
+
+			<StatusBarItem>
+				<TextBlock VerticalAlignment="Center"
+						Width="auto"
+						   Text="{Binding BackupStatus, Converter={StaticResource BackupStatusToStringConverter}}"/>
+			</StatusBarItem>
+
+			<StatusBarItem>
+				<TextBlock Text="Last file: "/>
+			</StatusBarItem>
+
+			<StatusBarItem Name="FileBeingUploaded">
+				<TextBlock Width="auto"
+						VerticalAlignment="Center"
+						   Text="{Binding FileBeingUploaded, UpdateSourceTrigger=PropertyChanged}"/>
+			</StatusBarItem>
+		</StatusBar>
+
+		<StatusBar Grid.Row="3">
+			<StatusBarItem>
+				<TextBlock Width="auto"
+						Text="Last sync:"/>
+			</StatusBarItem>
+
+			<StatusBarItem>
+				<TextBlock Margin="5 0"
+						Width="auto"
+						Text="{Binding LastBackupTime}"/>
+			</StatusBarItem>
+		</StatusBar>
+		<ProgressBar Grid.Row="4"
+				Height="20"
+				Maximum="100"
+				Margin="2"
+					 Value="{Binding FtpManager.ProgressValue}"
+					 HorizontalAlignment="Stretch"
+					 Foreground="{StaticResource AccentColorBrush}"/>
+	</Grid>
+</Window>

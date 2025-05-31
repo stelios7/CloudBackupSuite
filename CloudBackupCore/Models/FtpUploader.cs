@@ -1,0 +1,186 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.DirectoryServices.ActiveDirectory;
+using System.IO;
+using System.Linq;
+using System.Security.Permissions;
+using System.Text;
+using System.Threading.Tasks;
+using Cloud_Backup_Core.Helpers;
+using FluentFTP;
+
+namespace Cloud_Backup_Core.Models
+{
+    public class FtpUploader : BaseSetting
+    {
+        private static FtpUploader _instance;
+        private static readonly object _lock = new object();
+
+        public static FtpUploader Instance
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new FtpUploader();
+                    }
+                    return _instance;
+                }
+            }
+        }
+
+        public string FtpUsername { get; set; }
+        public string FtpPassword { get; set; }
+        public string FtpServer { get; set; }
+        public int FtpPort { get; set; }
+
+        private string ups;
+
+        public string UploadProgressString
+        {
+            get { return ups; }
+            set
+            {
+                ups = value;
+                OnPropertyChanged(nameof(UploadProgressString));
+            }
+        }
+
+        private double progressValue;
+
+        public double ProgressValue
+        {
+            get { return progressValue; }
+            set
+            {
+                progressValue = value;
+                OnPropertyChanged(nameof(ProgressValue));
+            }
+        }
+
+
+        private double uploadProgress;
+        public double UploadProgress
+        {
+            get { return uploadProgress; }
+            set
+            {
+                uploadProgress = value;
+                OnPropertyChanged(nameof(UploadProgress));
+            }
+        }
+
+        public FtpUploader()
+        {
+            try
+            {
+                string ConfigurationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Cloud_Backup_Core", "updater_config.json");
+                Config? ConfigManager = Config.Instance;
+                ConfigManager.Load(ConfigurationFile);
+                FtpServer = ConfigManager.FtpServer;
+                FtpUsername = ConfigManager.FtpUsername;
+                FtpPassword = ConfigManager.FtpPassword;
+                FtpPort = ConfigManager.FtpPort;
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("Error FtpUploader");
+            }
+        }
+
+        private readonly string remoteDirectory;
+
+        public async Task UploadFileFtp(string file_to_upload, string remote_ftp_destination, CancellationToken token)
+        {
+            try
+            {
+                string localFilePath = file_to_upload ?? @"C:\Users\paokf\Documents\caesium-image-compressor-2.1.0-win.zip";
+                string remoteFilePath = $"{remote_ftp_destination}/{Path.GetFileName(localFilePath)}";
+                var isUploadCompleted = false;
+
+                Progress<FtpProgress> progress = new Progress<FtpProgress>(p =>
+                {
+                    var lfp = Path.GetFileName(localFilePath);
+                    if (p.Progress == 100 && !isUploadCompleted)
+                    {
+                        Logger.Debug($"{lfp} Uploaded");
+                        isUploadCompleted = true;
+                        p.Progress = 0;
+                    }
+                    else
+                    {
+                        Logger.Debug($"{lfp} progress: {p.Progress}");
+                    }
+                    ProgressValue = p.Progress;
+                    UploadProgressString = $"{((int)ProgressValue)}%";
+                });
+
+                using (var client = new AsyncFtpClient(FtpServer, FtpUsername, FtpPassword, FtpPort))
+                {
+                    await client.Connect(token);
+
+                    await client.UploadFile(localFilePath, remoteFilePath, FtpRemoteExists.Overwrite, true, FtpVerify.None, progress, token);
+
+                    await client.Disconnect(token);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+            }
+        }
+
+        public async Task ReadFTP()
+        {
+            try
+            {
+
+                using (var client = new AsyncFtpClient(FtpServer, FtpUsername, FtpPassword, FtpPort))
+                {
+                    await client.Connect();
+
+                    foreach (var item in await client.GetListing("/CLOUDBACKUP"))
+                    {
+                        //FtpDirectories.Add($"{item.Type} - {item.Name} | {item.FullName}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public async Task CreateFTP_Directory()
+        {
+            Debug.WriteLine("Creating");
+            try
+            {
+                using (var client = new AsyncFtpClient(FtpServer, FtpUsername, FtpPassword, FtpPort))
+                {
+                    await client.Connect();
+
+                    string remoteDirectory = @"/CLOUDBACKUP/Sfuel/Test";
+
+                    bool success = await client.CreateDirectory(remoteDirectory, true);
+
+                    if (success)
+                    {
+                        Debug.WriteLine($"Directory {remoteDirectory} created successfully");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+
+    }
+}

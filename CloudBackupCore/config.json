@@ -1,0 +1,8 @@
+{
+	"FtpUrl": "ftp://iad1-shared-b8-15.dreamhost.com/",
+	"FtpUser": "stelios_updater",
+	"FtpPassword": "hZFk$7!upt",
+	"AppExeName": "CloudBackupCore.exe",
+	"LocalVersionFile": "version.txt",
+	"RemoteVersionFile": "version.txt"
+}
