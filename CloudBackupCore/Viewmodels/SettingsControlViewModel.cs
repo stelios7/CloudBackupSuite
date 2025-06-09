@@ -11,7 +11,6 @@ namespace Cloud_Backup_Core.Viewmodels
     internal class SettingsControlViewModel : BaseViewModel
     {
         private RelayCommand ofb_command;
-
         public RelayCommand OpenFolderBrowser_command
         {
             get { return ofb_command ?? (ofb_command = new RelayCommand(execute => OpenFolderBrowser(), canExecute => true)); }
@@ -37,14 +36,20 @@ namespace Cloud_Backup_Core.Viewmodels
                 OnPropertyChanged(nameof(LocalPath));
             }
         }
-        private string? software;
+        private string _softwareName;
+
+        public SettingsControlViewModel()
+        {
+
+        }
+
         public string SoftwareName
         {
-            get { return software ?? "NULL"; }
+            get { return _softwareName ?? "Input Software"; }
             set
             {
-                software = value;
-                OnPropertyChanged();
+                _softwareName = value;
+                OnPropertyChanged(nameof(SoftwareName));
             }
         }
     }

@@ -20,17 +20,8 @@ namespace Cloud_Backup_Core.Views
             Debug.WriteLine("Initiating settings window");
             InitializeComponent();
             this.Title = "FTP Settings";
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(SETTINGS_VIEW_ALIVE_TIMER);
-            timer.Tick += (s, args) =>
-            {
-                timer.Stop();
-                this.Close();
-            };
 
-            timer.Start();
-            this.DataContext = new Viewmodels.SettingsFtpViewModel();
-            //this.Closing += SettingsWindowFtpView_closing;
+            this.Closing += SettingsWindowFtpView_closing;
         }
 
         private void SettingsWindowFtpView_closing(object sender, System.ComponentModel.CancelEventArgs e)

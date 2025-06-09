@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Controls;
 using Cloud_Backup_Core.Views;
 using Cloud_Backup_Core.Models;
+using System.Windows;
 
 namespace Cloud_Backup_Core.Viewmodels
 {
@@ -219,7 +220,7 @@ namespace Cloud_Backup_Core.Viewmodels
             {
                 if (item.IsUploadEnabled)
                 {
-                    var directoryName = item.SoftwareName;
+                    var directoryName = item.Software;
                     var files = Directory.GetFiles(item.LocalPath);
                     foreach (var file in files)
                     {
@@ -227,7 +228,7 @@ namespace Cloud_Backup_Core.Viewmodels
                         FileBeingUploaded = Path.GetFileName(file);
                         var cts = new CancellationTokenSource();
                         UploadTokens.Add(cts);
-                        string ftp_destination = $"{ConfigManager.FtpRootDirectory}/{item.SoftwareName}/{user}";
+                        string ftp_destination = $"{ConfigManager.FtpRootDirectory}/{item.Software}/{user}";
 
                         try
                         {
@@ -279,24 +280,20 @@ namespace Cloud_Backup_Core.Viewmodels
 
         private void OpenBackupSettings()
         {
-            SettingsBackupView SettingsBackupView = new SettingsBackupView();
-            SettingsBackupView.DataContext = bvm;
-            SettingsBackupView.ShowDialog();
+            OpenSettingsWindow<SettingsBackupView, SettingsBackupViewModel>();
         }
 
 
         private void OpenLocalSettings()
         {
-            SettingsWindowLocalView settingsLocal = new SettingsWindowLocalView();
-            settingsLocal.DataContext = this;
-            settingsLocal.ShowDialog();
+            OpenSettingsWindow<SettingsWindowLocalView, SettingsLocalViewModel>();
         }
 
         private void OpenFtpSettings()
         {
-            SettingsWindowFtpView settingsWindow = new SettingsWindowFtpView();
-            settingsWindow.ShowDialog();
+            OpenSettingsWindow<SettingsWindowFtpView, SettingsFtpViewModel>();
         }
+
         #endregion
 
     }

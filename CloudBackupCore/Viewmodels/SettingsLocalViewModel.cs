@@ -1,7 +1,11 @@
 ﻿using Cloud_Backup_Core.Helpers;
+using Cloud_Backup_Core.Helpers.Settings;
+using Cloud_Backup_Core.Models.Settings;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,34 +18,6 @@ namespace Cloud_Backup_Core.Viewmodels
     class SettingsLocalViewModel : BaseViewModel, IDataErrorInfo
     {
         #region PROPERTIES
-
-        private int _autoBackupInterval;
-        public int AutoBackupInterval
-        {
-            get => _autoBackupInterval;
-            set
-            {
-                if (_autoBackupInterval != value)
-                {
-                    _autoBackupInterval = value;
-                    OnPropertyChanged(nameof(AutoBackupInterval));
-                }
-            }
-        }
-
-        private bool _isAutoBackupEnabled;
-        public bool IsAutoBackupEnabled
-        {
-            get => _isAutoBackupEnabled;
-            set
-            {
-                if (_isAutoBackupEnabled != value)
-                {
-                    _isAutoBackupEnabled = value;
-                    OnPropertyChanged(nameof(IsAutoBackupEnabled));
-                }
-            }
-        }
 
         private bool _deleteLocalAfterUpload;
         public bool DeleteLocalAfterUpload
@@ -127,48 +103,52 @@ namespace Cloud_Backup_Core.Viewmodels
             }
         }
 
+        private string SettingsFilePath { get; }
+
         #endregion
 
+        #region RELAY COMMANDS
 
-        public RelayCommand SaveCommand { get; }
-        private string SettingsFilePath { get; }
+        public RelayCommand SaveCommand => new RelayCommand(execute => SaveSettings(), canExecute => !HasErrors);
+
+        #endregion
 
         public SettingsLocalViewModel()
         {
-            SaveCommand = new RelayCommand(execute => SaveSettings(), canExecute => HasErrors);
-            SettingsFilePath = "C:/Program Files/CloudBackupCore/settings";
+            SettingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "local_settings.json");
             LoadSettings();
         }
 
         public void SaveSettings()
         {
-            var json = JsonSerializer.Serialize(this, new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
-
-            File.WriteAllText(SettingsFilePath, json);
+            SetSettings();
+            SettingsFileManager.SaveSettings<LocalSettings>(LocalSettingsFilePath, LocalSettings);
         }
+
+        private void SetSettings()
+        {
+            LocalSettings.DeleteLocalFileAfterUpload = DeleteLocalAfterUpload;
+            LocalSettings.KeepLocalBackup = KeepLocalBackup;
+            LocalSettings.MaximumUploadSizeMB = MaxUploadSizeMB;
+            LocalSettings.NotifyOnFailedUpload = NotifyOnFailure;
+            LocalSettings.ShowLogs = ShowLogs;
+            LocalSettings.StartWithWindows = StartWithWindows;
+        }
+
+        private readonly string LocalSettingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", "localsettings.json");
+
+        public static LocalSettings LocalSettings { get; private set; }
 
         public void LoadSettings()
         {
-            if (!File.Exists(SettingsFilePath))
-                return;
+            LocalSettings = SettingsFileManager.LoadSettings<LocalSettings>(LocalSettingsFilePath) ?? new LocalSettings();
 
-            var json = File.ReadAllText(SettingsFilePath);
-            var loaded = JsonSerializer.Deserialize<SettingsLocalViewModel>(json);
-
-            if (loaded != null)
-            {
-                AutoBackupInterval = loaded.AutoBackupInterval;
-                IsAutoBackupEnabled = loaded.IsAutoBackupEnabled;
-                DeleteLocalAfterUpload = loaded.DeleteLocalAfterUpload;
-                KeepLocalBackup = loaded.KeepLocalBackup;
-                MaxUploadSizeMB = loaded.MaxUploadSizeMB;
-                NotifyOnFailure = loaded.NotifyOnFailure;
-                ShowLogs = loaded.ShowLogs;
-                StartWithWindows = loaded.StartWithWindows;
-            }
+            DeleteLocalAfterUpload = LocalSettings.DeleteLocalFileAfterUpload;
+            KeepLocalBackup = LocalSettings.KeepLocalBackup;
+            MaxUploadSizeMB = LocalSettings.MaximumUploadSizeMB;
+            NotifyOnFailure = LocalSettings.NotifyOnFailedUpload;
+            ShowLogs = LocalSettings.ShowLogs;
+            StartWithWindows = LocalSettings.StartWithWindows;
         }
 
         public string Error => null;
@@ -179,11 +159,6 @@ namespace Cloud_Backup_Core.Viewmodels
             {
                 switch (columnName)
                 {
-                    case nameof(AutoBackupInterval):
-                        if (AutoBackupInterval <= 0)
-                            return "Το χρονικό διάστημα πρέπει να είναι μεγαλύτερο του μηδενός.";
-                        break;
-
                     case nameof(MaxUploadSizeMB):
                         if (MaxUploadSizeMB < 0)
                             return "Το όριο μεγέθους πρέπει να είναι μεγαλύτερο από 0. (Βάλε 0 για να αγνοηθεί)";
@@ -195,7 +170,6 @@ namespace Cloud_Backup_Core.Viewmodels
 
 
         public bool HasErrors =>
-            !string.IsNullOrEmpty(this[nameof(AutoBackupInterval)]) ||
             !string.IsNullOrEmpty(this[nameof(MaxUploadSizeMB)]);
     }
 }

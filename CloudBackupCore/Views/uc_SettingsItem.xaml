@@ -1,35 +1,45 @@
-﻿<UserControl x:Class="Cloud_Backup_Core.Views.uc_SettingsItem"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             Height="25" Width="400"
-			 MaxWidth="400" MinWidth="400"
-			 Margin="1"
-			 
-			 >
+﻿<UserControl
+	x:Class="Cloud_Backup_Core.Views.uc_SettingsItem"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	Width="350"
+	Height="25"
+	Margin="2"
+	mc:Ignorable="d">
 	<UserControl.Resources>
-		<Style TargetType="Border" BasedOn="{StaticResource SettingsControlBorder}">
-			<Setter Property="Background" Value="{StaticResource MutedBlueBrush}" />
-		</Style>
+		<Style BasedOn="{StaticResource SettingsControlBorder}" TargetType="Border" />
 	</UserControl.Resources>
-		<DockPanel LastChildFill="False" VerticalAlignment="Center">
-			<!-- Checkbox -->
-			<CheckBox x:Name="EnableCheckbox" Content="{Binding SoftwareName, UpdateSourceTrigger=PropertyChanged}"
-					  VerticalContentAlignment="Center"
-					  DockPanel.Dock="Left" Margin="0" Width="80" FontSize="14"
-                      VerticalAlignment="Center" 
-					  IsChecked="{Binding UploadEnabled}"
-				/>
+	<StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+		<!--  Checkbox  -->
+		<CheckBox
+			x:Name="EnableCheckbox"
+			Width="150"
+			Margin="0"
+			VerticalContentAlignment="Center"
+			FontSize="14"
+			IsChecked="{Binding UploadEnabled}">
+			<CheckBox.ContentTemplate>
+				<DataTemplate>
+					<TextBox
+						Padding="5 0 0 0"
+						FontSize="12"
+						Width="120"
+						VerticalContentAlignment="Center"
+						Background="Transparent"
+						BorderThickness="0"
+						Text="{Binding DataContext.SoftwareName, RelativeSource={RelativeSource AncestorType=CheckBox}, UpdateSourceTrigger=PropertyChanged}" />
+				</DataTemplate>
+			</CheckBox.ContentTemplate>
+		</CheckBox>
 
-			<!-- TextBox -->
-			<Border Width="280" CornerRadius="5">
-				<TextBox x:Name="PathTextBox" IsEnabled="{Binding IsChecked, ElementName=EnableCheckbox}" 
-						 Background="Transparent"
-						 Text="{Binding LocalPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-						 />
-			</Border>
-		</DockPanel>
-
+		<!--  TextBox  -->
+		<TextBox
+			x:Name="PathTextBox"
+			Width="200"
+			Background="White"
+			IsEnabled="{Binding IsChecked, ElementName=EnableCheckbox}"
+			Text="{Binding LocalPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+	</StackPanel>
 </UserControl>

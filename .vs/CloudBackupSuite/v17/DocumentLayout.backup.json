@@ -1,7 +1,52 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\views\\uc_settingsitem.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\views\\uc_settingsitem.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\viewmodels\\settingsftpviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\viewmodels\\settingsftpviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\viewmodels\\settingslocalviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\viewmodels\\settingslocalviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\helpers\\settings\\settingsfilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\helpers\\settings\\settingsfilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\viewmodels\\settingscontrolviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\viewmodels\\settingscontrolviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\views\\uc_settingsitem.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\views\\uc_settingsitem.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\views\\settingswindowlocalview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\views\\settingswindowlocalview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\views\\settingswindowftpview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\views\\settingswindowftpview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\views\\settingsbackupview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\views\\settingsbackupview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +54,174 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SettingsLocalViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\SettingsLocalViewModel.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Viewmodels\\SettingsLocalViewModel.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\SettingsLocalViewModel.cs",
+              "RelativeToolTip": "CloudBackupCore\\Viewmodels\\SettingsLocalViewModel.cs",
+              "ViewState": "AgIAAHsAAAAAAAAAAAArwJcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T09:30:25.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SettingsFileManager.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Helpers\\Settings\\SettingsFileManager.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Helpers\\Settings\\SettingsFileManager.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Helpers\\Settings\\SettingsFileManager.cs",
+              "RelativeToolTip": "CloudBackupCore\\Helpers\\Settings\\SettingsFileManager.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T09:19:45.034Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SettingsControlViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\SettingsControlViewModel.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Viewmodels\\SettingsControlViewModel.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\SettingsControlViewModel.cs",
+              "RelativeToolTip": "CloudBackupCore\\Viewmodels\\SettingsControlViewModel.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T09:15:49.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "uc_SettingsItem.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Views\\uc_SettingsItem.xaml.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Views\\uc_SettingsItem.xaml.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Views\\uc_SettingsItem.xaml.cs",
+              "RelativeToolTip": "CloudBackupCore\\Views\\uc_SettingsItem.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T09:15:34.154Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Viewmodels\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\MainViewModel.cs",
+              "RelativeToolTip": "CloudBackupCore\\Viewmodels\\MainViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAABuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T06:53:23.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SettingsFtpViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
+              "RelativeToolTip": "CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAArwIMAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T06:10:48.235Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "222e7776-5ae6-4cd3-ada7-6e0ddf742dcb",
+        "Display": 1,
+        "X": 251,
+        "Y": 123,
+        "Width": 1555,
+        "Height": 830,
+        "WindowState": 2
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SettingsWindowFtpView.xaml",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Views\\SettingsWindowFtpView.xaml",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Views\\SettingsWindowFtpView.xaml",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Views\\SettingsWindowFtpView.xaml",
+              "RelativeToolTip": "CloudBackupCore\\Views\\SettingsWindowFtpView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-09T05:50:45.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SettingsWindowLocalView.xaml",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Views\\SettingsWindowLocalView.xaml",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Views\\SettingsWindowLocalView.xaml",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Views\\SettingsWindowLocalView.xaml",
+              "RelativeToolTip": "CloudBackupCore\\Views\\SettingsWindowLocalView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-09T06:13:11.571Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "uc_SettingsItem.xaml",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Views\\uc_SettingsItem.xaml",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Views\\uc_SettingsItem.xaml",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Views\\uc_SettingsItem.xaml",
+              "RelativeToolTip": "CloudBackupCore\\Views\\uc_SettingsItem.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-09T06:13:10.787Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SettingsBackupView.xaml",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Views\\SettingsBackupView.xaml",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Views\\SettingsBackupView.xaml",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Views\\SettingsBackupView.xaml",
+              "RelativeToolTip": "CloudBackupCore\\Views\\SettingsBackupView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-09T06:13:08.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\App.xaml",
+              "RelativeDocumentMoniker": "CloudBackupCore\\App.xaml",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\App.xaml",
+              "RelativeToolTip": "CloudBackupCore\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-09T07:06:31.43Z",
+              "EditorCaption": ""
             }
           ]
         }

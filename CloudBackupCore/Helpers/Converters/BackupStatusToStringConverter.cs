@@ -9,7 +9,7 @@ using System.Windows.Data;
 
 namespace Cloud_Backup_Core.Helpers
 {
-    internal class BackupStatusToBoolConverter : IValueConverter
+    public class BackupStatusToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -17,19 +17,24 @@ namespace Cloud_Backup_Core.Helpers
             {
                 switch (status)
                 {
+                    case MainViewModel.BACKUP_STATUS.IDLE:
+                        return "Idle";
+                    case MainViewModel.BACKUP_STATUS.ONLINE:
+                        return "Online";
                     case MainViewModel.BACKUP_STATUS.UPLOADING:
-                        return false;
+                        return "Uploading";
                     default:
-                        return true;
+                        return "Error";
                 }
 
             }
-            return false;
+            return "Unknown";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
+
     }
 }

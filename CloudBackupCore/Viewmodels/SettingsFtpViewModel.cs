@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.OleDb;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
@@ -10,26 +12,75 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Cloud_Backup_Core.Helpers;
+using Cloud_Backup_Core.Models;
+using Cloud_Backup_Core.Models.Settings;
 using Cloud_Backup_Core.Viewmodels;
+using FluentFTP;
 
 namespace Cloud_Backup_Core.Viewmodels
 {
     internal class SettingsFtpViewModel : BaseViewModel
     {
-        private string softwareName;
+        #region DECLARATIONS
 
-        public string SoftwareName
+        private const int MAXIMUM_UPLOAD_SETTINGS = 6;
+        public static int MaximumUploadSettingsGroupBoxHeight { get; } = 150; 
+
+        private string ftpUsername;
+
+        public string FtpUsername
         {
-            get { return softwareName; }
-            set { softwareName = value; 
-                OnPropertyChanged(nameof(SoftwareName));
+            get { return ftpUsername; }
+            set { ftpUsername = value;
+                OnPropertyChanged(nameof(FtpUsername));
             }
         }
 
-        private string Sfuel = "Sfuel";
-        private string Lpg = "LpgRetail";
-        private string Softruck = "Softruck";
-        private string Upsales = "Upsales";
+        private string ftpServerAddress;
+        public string FtpServerAddress
+        {
+            get { return ftpServerAddress; }
+            set { ftpServerAddress = value;
+                OnPropertyChanged(nameof(FtpServerAddress));
+            }
+        }
+
+        private string ftpPort;
+        public string FtpPort
+        {
+            get { return ftpPort; }
+            set
+            {
+                ftpPort = value;
+                OnPropertyChanged(nameof(FtpPort));
+            }
+        }
+
+        private string _ftpPassword;
+
+        public string FtpPassword
+        {
+            get { return _ftpPassword; }
+            set { _ftpPassword = value;
+                OnPropertyChanged(nameof(FtpPassword));
+            }
+        }
+
+        private string _registeredName;
+
+        public string RegisteredName
+        {
+            get { return _registeredName; }
+            set { _registeredName = value;
+                OnPropertyChanged(nameof(RegisteredName));
+            }
+        }
+
+        private readonly string FtpSettingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", "ftpsettings.json");
+        public static FtpSettings FtpSettings { get; set; }
+
+        public RelayCommand AddUploadSettingCommand => new RelayCommand(execute => AddSetting(), canExecute => CanAddSetting());
+        public RelayCommand RemoveUploadSettingCommand => new RelayCommand(execute => RemoveSetting(), canExecute => CanRemoveSetting());
 
         private RelayCommand saveCommand;
         public RelayCommand SaveCommand
@@ -39,50 +90,92 @@ namespace Cloud_Backup_Core.Viewmodels
 
         public ObservableCollection<SettingsControlViewModel> UploadSettings { get; set; }
 
+        #endregion
+
+        #region CONSTRUCTOR
+
         public SettingsFtpViewModel()
         {
             LoadSettings();
         }
 
+        #endregion
+
+        #region FUNCTIONS
+
         private void SaveSettings()
         {
-            Properties.Settings.Default.Save();
-            Logger.Debug("Settings saved.");
+            //OLD SAVE SETTINGS
+            //Properties.Settings.Default.Save();
+            //Logger.Debug("Settings saved.");
+            
+            SettingsFileManager.SaveSettings<FtpSettings>(FtpSettingsFilePath, FtpSettings);
+
+            SaveAndClose();
         }
 
         private void SetSettings()
         {
-            var sfuel = UploadSettings.FirstOrDefault(a => a.SoftwareName == Sfuel);
-            var lpg = UploadSettings.FirstOrDefault(a => a.SoftwareName == Lpg);
-            var softruck = UploadSettings.FirstOrDefault(a => a.SoftwareName == Softruck);
-            var upsales = UploadSettings.FirstOrDefault(a => a.SoftwareName == Upsales);
-
-            Properties.Settings.Default.UploadSfuel = sfuel.UploadEnabled;
-            Properties.Settings.Default.UploadLpg = lpg.UploadEnabled;
-            Properties.Settings.Default.UploadSoftruck = softruck.UploadEnabled;
-            Properties.Settings.Default.UploadUpsales = upsales.UploadEnabled;
-
-            Properties.Settings.Default.SfuelLocalFilepath = sfuel.LocalPath;
-            Properties.Settings.Default.LpgLocalFilePath = lpg.LocalPath;
-            Properties.Settings.Default.SoftruckLocalFilePath = softruck.LocalPath;
-            Properties.Settings.Default.UpsalesLocalFilePath = upsales.LocalPath;
-
-            Properties.Settings.Default.SoftwareName = this.SoftwareName;
+            // Convert ObservableCollection<SettingsControlViewModel> to List<UploadSetting>
+            FtpSettings.UploadSettings = this.UploadSettings.Select(setting => new UploadSetting(setting.UploadEnabled, setting.SoftwareName, setting.LocalPath)).ToList();
+            FtpSettings.UseDefaultFtpCredentials = true; // Assuming we want to use default credentials
+            FtpSettings.RegisteredName = this.RegisteredName;
+            FtpSettings.ServerAddress = this.FtpServerAddress;
+            FtpSettings.Username = this.FtpUsername;
+            FtpSettings.Password = this.FtpPassword;
+            FtpSettings.Port = int.TryParse(this.FtpPort, out int port) ? port : 21; // Default to 21 if parsing fails
+            Logger.Debug("Settings have been set.");
         }
 
-        private void LoadSettings()
+        public void LoadSettings()
         {
-            Properties.Settings settings = Properties.Settings.Default;
-            UploadSettings = new ObservableCollection<SettingsControlViewModel>()
-            {
-                new SettingsControlViewModel { UploadEnabled = settings.UploadSfuel, LocalPath = settings.SfuelLocalFilepath, SoftwareName = Sfuel },
-                new SettingsControlViewModel { UploadEnabled = settings.UploadLpg, LocalPath = settings.LpgLocalFilePath, SoftwareName = Lpg },
-                new SettingsControlViewModel { UploadEnabled = settings.UploadSoftruck, LocalPath = settings.SoftruckLocalFilePath, SoftwareName = Softruck },
-                new SettingsControlViewModel { UploadEnabled = settings.UploadUpsales, LocalPath = settings.UpsalesLocalFilePath, SoftwareName = Upsales }
-            };
-            SoftwareName = settings.SoftwareName;
+            FtpSettings = SettingsFileManager.LoadSettings<FtpSettings>(FtpSettingsFilePath);
 
-            Logger.Debug("Settings loaded.");
+            if (UploadSettings == null) UploadSettings = new ObservableCollection<SettingsControlViewModel>();
+
+            foreach (var setting in FtpSettings.UploadSettings)
+            {
+                var scView = new Views.uc_SettingsItem();
+                var scv = new SettingsControlViewModel
+                {
+                    UploadEnabled = setting.IsUploadEnabled,
+                    LocalPath = setting.LocalPath,
+                    SoftwareName = setting.Software
+                };
+                scView.DataContext = scv;
+                UploadSettings.Add(scv);
+            }
+            RegisteredName = FtpSettings.RegisteredName;
+
+            // FTP settings cna be used like this
+            FtpServerAddress = FtpSettings.ServerAddress;
+            FtpUsername = FtpSettings.Username;
+            FtpPassword = FtpSettings.Password;
+            FtpPort = FtpSettings.Port.ToString();
+        }
+
+        private void AddSetting()
+        {
+            UploadSettings.Add(new SettingsControlViewModel());
+        }
+
+        public void RemoveSetting()
+        {
+            if (UploadSettings.Any())
+            {
+                UploadSettings.RemoveAt(UploadSettings.Count - 1);
+            }
+        }
+
+        public bool CanAddSetting()
+        {
+            return UploadSettings.Count < MAXIMUM_UPLOAD_SETTINGS;
+        }
+
+
+        public bool CanRemoveSetting()
+        {
+            return UploadSettings.Any();
         }
 
         private void ClearSettings()
@@ -91,5 +184,7 @@ namespace Cloud_Backup_Core.Viewmodels
             Properties.Settings.Default.Save();
             Logger.Debug("Settings reset.");
         }
+
+        #endregion
     }
 }
