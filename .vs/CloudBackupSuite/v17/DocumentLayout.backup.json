@@ -42,8 +42,7 @@
               "RelativeToolTip": "CloudUpdater\\settings\\updater_config.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-09T12:28:17.693Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T12:28:17.693Z"
             },
             {
               "$type": "Document",
@@ -53,7 +52,7 @@
               "RelativeDocumentMoniker": "CloudUpdater\\Program.cs",
               "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudUpdater\\Program.cs",
               "RelativeToolTip": "CloudUpdater\\Program.cs",
-              "ViewState": "AgIAAHYAAAAAAAAAAAAqwJUAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIQAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-09T10:27:11.667Z",
               "EditorCaption": ""

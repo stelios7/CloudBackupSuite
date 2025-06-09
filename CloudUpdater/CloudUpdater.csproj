@@ -17,9 +17,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Dependencies\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="SettingsFileMangerLibrary">
-      <HintPath>..\..\Libraries\SettingsFileMangerLibrary\bin\Debug\net9.0\SettingsFileMangerLibrary.dll</HintPath>
+      <HintPath>Dependencies\SettingsFileMangerLibrary.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Dependencies\SettingsFileMangerLibrary.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
