@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -10,20 +10,16 @@
 
   <ItemGroup>
     <None Remove="updater_config.json" />
-    <None Remove="version.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="updater_config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="version.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SettingsFileMangerLibrary">
+      <HintPath>..\..\Libraries\SettingsFileMangerLibrary\bin\Debug\net9.0\SettingsFileMangerLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -13,15 +13,15 @@ namespace CloudUpdater
         public string ExecutableName { get; set; }
         public string LocalUpdatePath { get; set; }
 
-        public static Config Load(string filePath)
-        {
-            if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException($"Configuration file not found: {filePath}");
-            }
+        //public static Config Load(string filePath)
+        //{
+        //    if (!File.Exists(filePath))
+        //    {
+        //        throw new FileNotFoundException($"Configuration file not found: {filePath}");
+        //    }
 
-            string json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<Config>(json);
-        }
+        //    string json = File.ReadAllText(filePath);
+        //    return JsonConvert.DeserializeObject<Config>(json);
+        //}
     }
 }

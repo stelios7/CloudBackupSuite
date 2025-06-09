@@ -24,8 +24,6 @@ namespace Cloud_Backup_Core.Viewmodels
         #region DECLARATIONS
 
         private const int MAXIMUM_UPLOAD_SETTINGS = 6;
-        public static int MaximumUploadSettingsGroupBoxHeight { get; } = 150; 
-
         private string ftpUsername;
 
         public string FtpUsername
@@ -57,7 +55,6 @@ namespace Cloud_Backup_Core.Viewmodels
         }
 
         private string _ftpPassword;
-
         public string FtpPassword
         {
             get { return _ftpPassword; }
@@ -110,6 +107,7 @@ namespace Cloud_Backup_Core.Viewmodels
             //Logger.Debug("Settings saved.");
             
             SettingsFileManager.SaveSettings<FtpSettings>(FtpSettingsFilePath, FtpSettings);
+            
 
             SaveAndClose();
         }
