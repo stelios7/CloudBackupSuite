@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using Cloud_Backup_Core.Views;
 using Cloud_Backup_Core.Models;
 using System.Windows;
+using Cloud_Backup_Core.Helpers.Settings;
+using Cloud_Backup_Core.Models.Settings;
 
 namespace Cloud_Backup_Core.Viewmodels
 {
@@ -24,30 +26,6 @@ namespace Cloud_Backup_Core.Viewmodels
 
         #endregion
 
-        #region CONSTRUCTOR
-        public MainViewModel()
-        {
-            // Debug.Print("Before instance");
-            FtpManager = FtpUploader.Instance;
-            BackupStatus = BACKUP_STATUS.IDLE;
-            UploadTokens = new List<CancellationTokenSource>();
-
-            bvm = new SettingsBackupViewModel();
-            svm = new SettingsLocalViewModel();
-
-            // Debug.Print("After instance");
-            string ConfigurationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Cloud_Backup_Core", "updater_config.json");
-            ConfigManager = Config.Instance;
-            ConfigManager.Load(ConfigurationFile);
-
-            BackupTimers = new List<DispatcherTimer>();
-            RootDirectory = @"C:\Users\paokf\Documents\root_upload";
-
-            StartSync();
-            AppVersion = GetAppVersion();
-        }
-        #endregion
-
         #region PROPERTIES DECLARATIONS
 
         private SettingsBackupViewModel bvm { get; set; }
@@ -55,7 +33,6 @@ namespace Cloud_Backup_Core.Viewmodels
 
         public FtpUploader FtpManager { get; }
         private List<CancellationTokenSource> UploadTokens { get; set; }
-        private Config ConfigManager { get; }
 
         private const int SYNC_TIMER = 2;
         private string appVersion;
@@ -137,11 +114,35 @@ namespace Cloud_Backup_Core.Viewmodels
 
         #endregion
 
+        #region CONSTRUCTOR
+        public MainViewModel()
+        {
+            // Debug.Print("Before instance");
+            FtpManager = FtpUploader.Instance;
+            BackupStatus = BACKUP_STATUS.IDLE;
+            UploadTokens = new List<CancellationTokenSource>();
+
+            bvm = new SettingsBackupViewModel();
+            svm = new SettingsLocalViewModel();
+
+            // Debug.Print("After instance");
+            //string ConfigurationFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "updater_config.json");
+            //ConfigManager = Config.Instance;
+            //ConfigManager.Load(ConfigurationFile);
+
+            BackupTimers = new List<DispatcherTimer>();
+            RootDirectory = @"C:\Users\paokf\Documents\root_upload";
+
+            StartSync();
+            AppVersion = GetAppVersion();
+        }
+        #endregion
+
         #region FUNCTIONS
 
         private string GetAppVersion()
         {
-            string version = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "CloudBackupCore", "version.txt"));
+            string version = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "version.txt"));
             return $"Version: {version}";
         }
 
@@ -189,38 +190,24 @@ namespace Cloud_Backup_Core.Viewmodels
 
         private async Task SyncNow()
         {
-            var uSfuel = Properties.Settings.Default.UploadSfuel;
-            var uLpg = Properties.Settings.Default.UploadLpg;
-            var uSoftruck = Properties.Settings.Default.UploadSoftruck;
-            var uUpsales = Properties.Settings.Default.UploadUpsales;
-
-            var pSfuel = uSfuel ? Properties.Settings.Default.SfuelLocalFilepath : "";
-            var pLpg = uLpg ? Properties.Settings.Default.LpgLocalFilePath : "";
-            var pSoftruck = uSoftruck ? Properties.Settings.Default.SoftruckLocalFilePath : "";
-            var pUpsales = uUpsales ? Properties.Settings.Default.UpsalesLocalFilePath : "";
-
-            var user = Properties.Settings.Default.SoftwareName;
             ToBeUploaded = new List<string>();
-            UserSettings us = new UserSettings(user)
+
+            FtpSettings sfm = SettingsFileManager.LoadSettings<FtpSettings>(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", MainWindow.SETTINGS_FTP_JSON));
+
+            if (sfm == null || sfm.UploadSettings == null || sfm.UploadSettings.Count == 0)
             {
-                UploadSettings = {
-                    new UploadSetting(uSfuel, "Sfuel", pSfuel),
-                    new UploadSetting(uLpg, "LpgRetail", pLpg),
-                    new UploadSetting(uSoftruck, "Softruck", pSoftruck),
-                    new UploadSetting(uUpsales, "Upsales", pUpsales)
-                }
-            };
+                Logger.Error("No upload settings found.");
+                return;
+            }
 
-            if (uSfuel && File.Exists(pSfuel)) ToBeUploaded.Add(pSfuel);
-            if (uLpg && File.Exists(pLpg)) ToBeUploaded.Add(pLpg);
-            if (uSoftruck && File.Exists(pSoftruck)) ToBeUploaded.Add(pSoftruck);
-            if (uUpsales && File.Exists(pUpsales)) ToBeUploaded.Add(pUpsales);
-
-            foreach (var item in us.UploadSettings)
+            string user = sfm.RegisteredName;
+            foreach (var item in sfm.UploadSettings)
             {
                 if (item.IsUploadEnabled)
                 {
                     var directoryName = item.Software;
+                    try
+                    {
                     var files = Directory.GetFiles(item.LocalPath);
                     foreach (var file in files)
                     {
@@ -228,7 +215,7 @@ namespace Cloud_Backup_Core.Viewmodels
                         FileBeingUploaded = Path.GetFileName(file);
                         var cts = new CancellationTokenSource();
                         UploadTokens.Add(cts);
-                        string ftp_destination = $"{ConfigManager.FtpRootDirectory}/{item.Software}/{user}";
+                        string ftp_destination = $"{sfm.RootFtpUploadDirectory}/{item.Software}/{user}";
 
                         try
                         {
@@ -241,6 +228,11 @@ namespace Cloud_Backup_Core.Viewmodels
                             Logger.Debug($"Upload failed: {ex.Message}");
                         }
                         BackupStatus = BACKUP_STATUS.IDLE;
+                    }
+                    }
+                    catch(Exception ex)
+                    {
+                        Logger.Error($"{ex.Message}");
                     }
                 }
             }

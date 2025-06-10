@@ -135,7 +135,7 @@ namespace Cloud_Backup_Core.Viewmodels
             LocalSettings.StartWithWindows = StartWithWindows;
         }
 
-        private readonly string LocalSettingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", "localsettings.json");
+        private readonly string LocalSettingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", "local_settings.json");
 
         public static LocalSettings LocalSettings { get; private set; }
 

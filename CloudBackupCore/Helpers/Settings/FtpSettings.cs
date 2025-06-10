@@ -18,5 +18,7 @@ namespace Cloud_Backup_Core.Models.Settings
         public List<UploadSetting> UploadSettings { get; set; } = new();
         public string RegisteredName { get; set; }
 
+        public string RootFtpUploadDirectory { get; set; }
+        public string RemoteUpdateDirectory { get; set; }
     }
 }

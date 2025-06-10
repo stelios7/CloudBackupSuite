@@ -70,48 +70,19 @@
 			<RowDefinition Height="22" />
 			<RowDefinition Height="25" />
 		</Grid.RowDefinitions>
-		<!--<StackPanel Orientation="Horizontal" x:Name="MainWindowTopMenu"
-				Grid.Row="0">
-			<StackPanel.Resources>
-				<Style TargetType="Button">
-					<Style.Triggers>
-						<Trigger Property="IsMouseOver"
-								Value="True">
-							<Setter Property="Background"
-									Value="{StaticResource AccentColorBrush}"/>
-							<Setter Property="Foreground"
-									Value="{StaticResource TextBrush}"/>
-						</Trigger>
-					</Style.Triggers>
-				</Style>
-			</StackPanel.Resources>
-			<Button Content="Settings"
-					Command="{Binding OpenLocalSettings_command}"
-					Style="{StaticResource MenuBarButton2}"/>
-			<Button Content="FTP"
-					Command="{Binding OpenFtpSettings_command}"
-					Style="{StaticResource MenuBarButton2}"/>
-
-			<Button Content="SQL Backup"
-					Command="{Binding OpenBackupSettings_command}"
-					Style="{StaticResource MenuBarButton2}"/>
-			<TextBlock x:Name="labelAppVersion"
-					   Text="{Binding AppVersion}"
-					   FontSize="10"
-					   Margin="5 0"
-					   Padding="0"
-					   VerticalAlignment="Center"
-					   HorizontalAlignment="Right"
-					   Foreground="{StaticResource TextBrush}"
-					   FontWeight="Bold"/>
-		</StackPanel>-->
 		<Menu
 			x:Name="MainWindowTopMenu"
 			Grid.Row="0"
+			Height="30"
+			Margin="0"
+			Padding="0"
 			VerticalAlignment="Center"
+			VerticalContentAlignment="Center"
 			FontSize="14">
 			<Menu.Resources>
 				<Style TargetType="MenuItem">
+					<Setter Property="VerticalAlignment" Value="Center" />
+					<Setter Property="VerticalContentAlignment" Value="Center" />
 					<Setter Property="Cursor" Value="Hand" />
 					<Style.Triggers>
 						<Trigger Property="IsMouseOver" Value="True">
@@ -121,38 +92,46 @@
 					</Style.Triggers>
 				</Style>
 			</Menu.Resources>
-			<MenuItem Header="Settings">
+			<MenuItem VerticalContentAlignment="Center" Header="Settings">
 				<MenuItem Command="{Binding OpenLocalSettings_command}" Header="Local" />
 				<MenuItem Command="{Binding OpenFtpSettings_command}" Header="FTP" />
 				<MenuItem Command="{Binding OpenBackupSettings_command}" Header="Database Backup" />
 			</MenuItem>
 			<MenuItem
-				Padding="5,0"
+				Padding="5,5"
 				HorizontalAlignment="Right"
+				VerticalAlignment="Center"
+				VerticalContentAlignment="Center"
 				FontSize="10"
 				FontWeight="Bold"
 				Foreground="{StaticResource TextBrush}"
 				Header="{Binding AppVersion}"
 				IsEnabled="False" />
 		</Menu>
-		<StackPanel Grid.Row="1" VerticalAlignment="Center">
-			<StackPanel Grid.Column="0">
-				<Button
-					Command="{Binding ForceUpload_command}"
-					Content="Force Upload"
-					IsEnabled="{Binding BackupStatus, Converter={StaticResource BackupStatusToBoolConverter}}"
-					Style="{StaticResource ResourceKey=PrimaryButton}"
-					Visibility="{Binding BackupStatus, Converter={StaticResource BackupStatusToVisibilityConverter}}" />
-				<Button
-					Command="{Binding StartSync_command}"
-					Content="Start Sync"
-					Style="{StaticResource ResourceKey=PrimaryButton}" />
-				<Button
-					Command="{Binding PauseSync_command}"
-					Content="Pause Sync"
-					Style="{StaticResource ResourceKey=PrimaryButton}" />
+		<Border
+			Grid.Row="1"
+			Width="250"
+			Height="160"
+			Background="Transparent">
+			<StackPanel VerticalAlignment="Center">
+				<StackPanel>
+					<Button
+						Command="{Binding ForceUpload_command}"
+						Content="Force Upload"
+						IsEnabled="{Binding BackupStatus, Converter={StaticResource BackupStatusToBoolConverter}}"
+						Style="{StaticResource ResourceKey=PrimaryButton}"
+						Visibility="{Binding BackupStatus, Converter={StaticResource BackupStatusToVisibilityConverter}}" />
+					<Button
+						Command="{Binding StartSync_command}"
+						Content="Start Sync"
+						Style="{StaticResource ResourceKey=PrimaryButton}" />
+					<Button
+						Command="{Binding PauseSync_command}"
+						Content="Pause Sync"
+						Style="{StaticResource ResourceKey=PrimaryButton}" />
+				</StackPanel>
 			</StackPanel>
-		</StackPanel>
+		</Border>
 
 		<StatusBar Grid.Row="2">
 			<StatusBarItem>
@@ -192,8 +171,6 @@
 		</StatusBar>
 		<ProgressBar
 			Grid.Row="4"
-			Height="20"
-			Margin="2"
 			HorizontalAlignment="Stretch"
 			Foreground="{StaticResource AccentColorBrush}"
 			Maximum="100"

@@ -11,7 +11,9 @@
 	WindowStartupLocation="CenterScreen"
 	WindowStyle="ToolWindow"
 	mc:Ignorable="d">
+
 	<Window.Resources>
+
 		<Style BasedOn="{StaticResource SettingsGroupBox}" TargetType="GroupBox">
 			<Setter Property="Width" Value="400" />
 		</Style>
@@ -35,11 +37,11 @@
 		Orientation="Vertical">
 
 		<!--  Toggle default FTP config  -->
-		<CheckBox
+		<!--<CheckBox
 			Margin="0,0,0,5"
 			HorizontalAlignment="Left"
 			Content="Use Default FTP Settings"
-			IsChecked="{Binding IsUsingDefaultSettings, Mode=TwoWay}" />
+			IsChecked="{Binding IsUsingDefaultSettings, Mode=TwoWay}" />-->
 
 		<!--  FTP Connection Settings  -->
 		<GroupBox Header="FTP Connection">
@@ -90,6 +92,17 @@
 					<Border Width="100" Margin="20,1,0,0">
 						<TextBox Text="{Binding FtpPort, UpdateSourceTrigger=PropertyChanged}" />
 					</Border>
+
+					<!--  TEST FTP CONNECTION  -->
+					<Button
+						Height="30"
+						Margin="0,4,0,0"
+						Padding="20,0"
+						VerticalAlignment="Center"
+						VerticalContentAlignment="Center"
+						Command="{Binding TestFtpConnectionCommand}"
+						Content="Test FTP Connection"
+						Style="{StaticResource MenuBarButton2}" />
 				</StackPanel>
 			</StackPanel>
 		</GroupBox>
@@ -123,7 +136,7 @@
 
 		<!--  Identification  -->
 		<GroupBox Margin="0,10,0,0" Header="Identification">
-			<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+			<StackPanel HorizontalAlignment="center" Orientation="Horizontal">
 				<Label VerticalAlignment="Center" Content="ΑΦΜ:" />
 				<TextBox Width="200" Text="{Binding RegisteredName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 			</StackPanel>

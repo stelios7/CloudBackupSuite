@@ -15,6 +15,8 @@ namespace Cloud_Backup_Core.Viewmodels
 {
     internal class SettingsBackupViewModel : BaseViewModel
     {
+        #region PROPERTIES
+
         private readonly SqlBackupService _backupService;
         private string _username;
         private string _password;
@@ -57,18 +59,20 @@ namespace Cloud_Backup_Core.Viewmodels
         private string _sqlServerName;
         private string _scheduledTime = "10:00";
 
-        public RelayCommand BackupCommand { get; }
-        public RelayCommand BrowseCommand { get; }
-        public RelayCommand SaveBackupSettingsCommand { get; }
-        public RelayCommand SetScheduleCommand { get; }
+        #endregion
+
+        #region RELAY COMMANDS
+
+        public RelayCommand SaveBackupSettingsCommand => new RelayCommand(execute => SaveBackupSettings(), canExecute => CanExecuteBackup());
+        public RelayCommand BackupCommand => new RelayCommand(execute => ExecuteBackup(), canExecute => CanExecuteBackup());
+        public RelayCommand SetScheduleCommand => new RelayCommand(execute => SetScheduleForBackup(), canExecute => true);
+        public RelayCommand BrowseCommand => new RelayCommand(execute => BrowseBackupFolder(), canExecute => true);
+
+        #endregion
 
         public SettingsBackupViewModel()
         {
             _backupModel = new BackupModel();
-            BackupCommand = new RelayCommand(execute => ExecuteBackup(), canExecute => CanExecuteBackup());
-            BrowseCommand = new RelayCommand(execute => BrowseBackupFolder(), canExecute => true);
-            SetScheduleCommand = new RelayCommand(execute => SetScheduleForBackup(), canExecute => true);
-            SaveBackupSettingsCommand = new RelayCommand(execute => SaveBackupSettings(), canExecute => CanExecuteBackup());
             LoadSettings();
 
             var server = Properties.Settings.Default.SQLServerInstance;

@@ -8,12 +8,16 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using Cloud_Backup_Core.Helpers;
+using Cloud_Backup_Core.Helpers.Settings;
+using Cloud_Backup_Core.Models.Settings;
 using FluentFTP;
 
 namespace Cloud_Backup_Core.Models
 {
     public class FtpUploader : BaseSetting
     {
+        #region SINGLETON
+
         private static FtpUploader _instance;
         private static readonly object _lock = new object();
 
@@ -32,13 +36,14 @@ namespace Cloud_Backup_Core.Models
             }
         }
 
-        public string FtpUsername { get; set; }
-        public string FtpPassword { get; set; }
-        public string FtpServer { get; set; }
-        public int FtpPort { get; set; }
+        #endregion
+
+        #region PROPERTIES
+
+        private readonly string remoteDirectory;
+        private static FtpSettings FtpSettings => SettingsFileManager.LoadSettings<FtpSettings>(MainWindow.SETTINGS_FTP_JSON);
 
         private string ups;
-
         public string UploadProgressString
         {
             get { return ups; }
@@ -61,7 +66,6 @@ namespace Cloud_Backup_Core.Models
             }
         }
 
-
         private double uploadProgress;
         public double UploadProgress
         {
@@ -73,25 +77,26 @@ namespace Cloud_Backup_Core.Models
             }
         }
 
+        private string FtpServer;
+        private string FtpUsername;
+        private string FtpPassword;
+        private int FtpPort;
+
+        #endregion
+
+        #region CONSTRUCTOR
+
         public FtpUploader()
         {
-            try
-            {
-                string ConfigurationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Cloud_Backup_Core", "updater_config.json");
-                Config? ConfigManager = Config.Instance;
-                ConfigManager.Load(ConfigurationFile);
-                FtpServer = ConfigManager.FtpServer;
-                FtpUsername = ConfigManager.FtpUsername;
-                FtpPassword = ConfigManager.FtpPassword;
-                FtpPort = ConfigManager.FtpPort;
-            }
-            catch (Exception ex)
-            {
-                Debug.Print("Error FtpUploader");
-            }
+            FtpServer = FtpSettings.ServerAddress;
+            FtpUsername = FtpSettings.Username;
+            FtpPassword = FtpSettings.Password;
+            FtpPort = FtpSettings.Port;
         }
 
-        private readonly string remoteDirectory;
+        #endregion
+
+        #region FUNCTIONS
 
         public async Task UploadFileFtp(string file_to_upload, string remote_ftp_destination, CancellationToken token)
         {
@@ -118,14 +123,14 @@ namespace Cloud_Backup_Core.Models
                     UploadProgressString = $"{((int)ProgressValue)}%";
                 });
 
-                using (var client = new AsyncFtpClient(FtpServer, FtpUsername, FtpPassword, FtpPort))
-                {
-                    await client.Connect(token);
 
-                    await client.UploadFile(localFilePath, remoteFilePath, FtpRemoteExists.Overwrite, true, FtpVerify.None, progress, token);
+                using var client = new AsyncFtpClient(FtpSettings.ServerAddress, FtpSettings.Username, FtpSettings.Password, FtpSettings.Port);
 
-                    await client.Disconnect(token);
-                }
+                await client.Connect(token);
+
+                await client.UploadFile(localFilePath, remoteFilePath, FtpRemoteExists.Overwrite, true, FtpVerify.None, progress, token);
+
+                await client.Disconnect(token);
 
 
             }
@@ -140,14 +145,12 @@ namespace Cloud_Backup_Core.Models
             try
             {
 
-                using (var client = new AsyncFtpClient(FtpServer, FtpUsername, FtpPassword, FtpPort))
-                {
-                    await client.Connect();
+                using var client = new AsyncFtpClient(FtpSettings.ServerAddress, FtpSettings.Username, FtpSettings.Password, FtpSettings.Port);
+                await client.Connect();
 
-                    foreach (var item in await client.GetListing("/CLOUDBACKUP"))
-                    {
-                        //FtpDirectories.Add($"{item.Type} - {item.Name} | {item.FullName}");
-                    }
+                foreach (var item in await client.GetListing("/CLOUDBACKUP"))
+                {
+                    //FtpDirectories.Add($"{item.Type} - {item.Name} | {item.FullName}");
                 }
             }
             catch (Exception ex)
@@ -181,6 +184,6 @@ namespace Cloud_Backup_Core.Models
             }
         }
 
-
+        #endregion
     }
 }

@@ -7,6 +7,8 @@ using System.Diagnostics.Contracts;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +18,7 @@ using Cloud_Backup_Core.Models;
 using Cloud_Backup_Core.Models.Settings;
 using Cloud_Backup_Core.Viewmodels;
 using FluentFTP;
+using FluentFTP.Exceptions;
 
 namespace Cloud_Backup_Core.Viewmodels
 {
@@ -29,7 +32,9 @@ namespace Cloud_Backup_Core.Viewmodels
         public string FtpUsername
         {
             get { return ftpUsername; }
-            set { ftpUsername = value;
+            set
+            {
+                ftpUsername = value;
                 OnPropertyChanged(nameof(FtpUsername));
             }
         }
@@ -38,7 +43,9 @@ namespace Cloud_Backup_Core.Viewmodels
         public string FtpServerAddress
         {
             get { return ftpServerAddress; }
-            set { ftpServerAddress = value;
+            set
+            {
+                ftpServerAddress = value;
                 OnPropertyChanged(nameof(FtpServerAddress));
             }
         }
@@ -58,7 +65,9 @@ namespace Cloud_Backup_Core.Viewmodels
         public string FtpPassword
         {
             get { return _ftpPassword; }
-            set { _ftpPassword = value;
+            set
+            {
+                _ftpPassword = value;
                 OnPropertyChanged(nameof(FtpPassword));
             }
         }
@@ -68,16 +77,72 @@ namespace Cloud_Backup_Core.Viewmodels
         public string RegisteredName
         {
             get { return _registeredName; }
-            set { _registeredName = value;
+            set
+            {
+                _registeredName = value;
                 OnPropertyChanged(nameof(RegisteredName));
             }
         }
 
-        private readonly string FtpSettingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", "ftpsettings.json");
+        private readonly string FtpSettingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", "ftp_settings.json");
         public static FtpSettings FtpSettings { get; set; }
 
         public RelayCommand AddUploadSettingCommand => new RelayCommand(execute => AddSetting(), canExecute => CanAddSetting());
         public RelayCommand RemoveUploadSettingCommand => new RelayCommand(execute => RemoveSetting(), canExecute => CanRemoveSetting());
+        public RelayCommand TestFtpConnectionCommand => new RelayCommand(async execute => await TestFtpConnection(), canExecute => CanTestFtpConnection());
+
+        private bool isTryingFtpConnection = false;
+
+        private bool CanTestFtpConnection()
+        {
+            if (FtpServerAddress == null || FtpUsername == null || FtpPassword == null || FtpPort == null) return false;
+            return FtpServerAddress.Length > 0 && FtpUsername.Length > 0 && FtpPassword.Length > 0 && FtpPort.Length > 0 && !isTryingFtpConnection;
+        }
+
+        private async Task TestFtpConnection()
+        {
+            try
+            {
+                isTryingFtpConnection = true;
+                using var client = new AsyncFtpClient()
+                {
+                    Credentials = new NetworkCredential(FtpUsername, FtpPassword),
+                    Port = Int32.Parse(FtpPort),
+                    Host = FtpServerAddress
+                };
+
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+
+                await client.Connect(cts.Token);
+
+                if (client.IsConnected)
+                {
+                    System.Windows.MessageBox.Show("FTP Connection successful!");
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Ftp connection failed.");
+                }
+                isTryingFtpConnection = false;
+            }
+            catch (OperationCanceledException)
+            {
+                // connection timed out (after 3 seconds)
+                System.Windows.MessageBox.Show("Connection timed out.");
+                isTryingFtpConnection = false;
+            }
+            catch (FtpAuthenticationException ex)
+            {
+                // incorrect credentials
+                System.Windows.MessageBox.Show("Authentication failed: " + ex.Message);
+                isTryingFtpConnection = false;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Connection error: {ex.Message}");
+                isTryingFtpConnection = false;
+            }
+        }
 
         private RelayCommand saveCommand;
         public RelayCommand SaveCommand
@@ -102,13 +167,7 @@ namespace Cloud_Backup_Core.Viewmodels
 
         private void SaveSettings()
         {
-            //OLD SAVE SETTINGS
-            //Properties.Settings.Default.Save();
-            //Logger.Debug("Settings saved.");
-            
             SettingsFileManager.SaveSettings<FtpSettings>(FtpSettingsFilePath, FtpSettings);
-            
-
             SaveAndClose();
         }
 
@@ -145,7 +204,7 @@ namespace Cloud_Backup_Core.Viewmodels
             }
             RegisteredName = FtpSettings.RegisteredName;
 
-            // FTP settings cna be used like this
+            // FTP settings can be used like this
             FtpServerAddress = FtpSettings.ServerAddress;
             FtpUsername = FtpSettings.Username;
             FtpPassword = FtpSettings.Password;
@@ -169,7 +228,6 @@ namespace Cloud_Backup_Core.Viewmodels
         {
             return UploadSettings.Count < MAXIMUM_UPLOAD_SETTINGS;
         }
-
 
         public bool CanRemoveSetting()
         {

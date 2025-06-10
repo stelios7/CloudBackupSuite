@@ -5,6 +5,7 @@
 	xmlns:System="clr-namespace:System;assembly=mscorlib"
 	xmlns:local="clr-namespace:Cloud_Backup_Core"
 	StartupUri="MainWindow.xaml">
+
 	<Application.Resources>
 		<System:Double x:Key="ControlHeight30">30</System:Double>
 
@@ -195,10 +196,17 @@
 
 		<Style x:Key="MainWindowStyle" TargetType="Window">
 			<Setter Property="Background" Value="#F4F4F4" />
+			<Setter Property="Background">
+				<Setter.Value>
+					<ImageBrush ImageSource="views/backgrounds/moroccan-flower.png" Stretch="UniformToFill" />
+				</Setter.Value>
+			</Setter>
 		</Style>
 
-		<Style x:Key="SettingsWindowStyle" TargetType="Window">
-			<Setter Property="Background" Value="#F4F4F4" />
+		<Style
+			x:Key="SettingsWindowStyle"
+			BasedOn="{StaticResource MainWindowStyle}"
+			TargetType="Window">
 			<Setter Property="WindowStyle" Value="ToolWindow" />
 			<Setter Property="Height" Value="600" />
 			<Setter Property="Width" Value="500" />

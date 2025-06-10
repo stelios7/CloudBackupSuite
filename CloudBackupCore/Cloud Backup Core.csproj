@@ -15,6 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\backgrounds\moroccan-flower.png" />
     <None Remove="Resources\Content\cloud_backup.ico" />
     <None Remove="Resources\Icons\cloud_backup.ico" />
   </ItemGroup>
@@ -30,6 +31,9 @@
     <Content Include="Resources\Content\cloud_backup.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Views\backgrounds\moroccan-flower.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\cloud_backup.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

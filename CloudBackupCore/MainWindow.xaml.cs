@@ -9,7 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Shapes = System.Windows.Shapes;
 using System.Windows.Threading;
 using Cloud_Backup_Core.Helpers;
 using Cloud_Backup_Core.Viewmodels;
@@ -21,21 +21,30 @@ namespace Cloud_Backup_Core
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const int UPDATE_TIMER = 300;
-        private NotifyIcon _notifyIcon;
         private CancellationTokenSource _cts;
-        MainViewModel vm;
+        private NotifyIcon _notifyIcon;
+
+        private const int UPDATE_TIMER = 300;
+        private MainViewModel _mainViewModel;
+
+        public static readonly string SETTINGS_BACKUP_JSON = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "backup_settings.json");
+        public static readonly string SETTINGS_UPDATER_JSON = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "updater_config.json");
+        public static readonly string SETTINGS_LOCAL_JSON = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "local_settings.json");
+        public static readonly string SETTINGS_FTP_JSON = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "ftp_settings.json");
+        public static readonly string SETTINGS_VERSION_TXT = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "version.txt");
 
         public MainWindow()
         {
             CreateNecessaryData();
-            //InitializeComponent();
+            InitializeComponent();
+
+            _mainViewModel = new MainViewModel();
+
             SetupTrayIcon();
             CreateTimers();
 
-
             this.Loaded += MainWindow_Loaded;
-            this.DataContext = vm;
+            this.DataContext = _mainViewModel;
         }
 
         private void NotifyIcon_DoubleClick(object sender, EventArgs e)
@@ -43,41 +52,50 @@ namespace Cloud_Backup_Core
             Show();
             WindowState = WindowState.Normal;
         }
+
         private void CreateNecessaryData()
         {
-            vm = new MainViewModel();
+            var appDomain = Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
+            var appDomainSettings = Path.Combine(appDomain, "settings");
 
-            // Φτιάχνω φάκελο στο APPDATA αν δεν υπάρχει ήδη
-            string localAppData = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Cloud_Backup_Core");
-            string appDataLocalFolder = System.IO.Path.Combine(localAppData, "update");
-            if (!Directory.Exists(appDataLocalFolder))
+            // Δημιουργία φακέλου για την ενημέρωση του προγράμματος
+            DirectoryInfo[] directoryInfos = new DirectoryInfo[]
             {
-                Directory.CreateDirectory(appDataLocalFolder);
-                Debug.Print("%LOCALAPPDATA% OK!");
+                new DirectoryInfo(Path.Combine(appDomain, "update", "temp")),
+                new DirectoryInfo(Path.Combine(appDomain, "settings"))
+            };
+            foreach (var di in directoryInfos)
+            {
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                di.Attributes |= FileAttributes.Directory | FileAttributes.Hidden;
             }
 
-            // Φτιάχνω φάκελο temp στην τοποθεσία εγκατάστασης
-            Config.Instance.Load(System.IO.Path.Combine(localAppData, "updater_config.json"));
-
-            string tempFolder = System.IO.Path.Combine(Config.Instance.LocalAppPath, "temp");
-            if (!Directory.Exists(tempFolder))
+            // Δημιουργία αρχείων που θα χρησιμοποιηθούν για την ενημέρωση
+            FileInfo[] fileInfos = new FileInfo[]
             {
-                Directory.CreateDirectory(tempFolder);
-                Debug.Print("Temp folder OK");
-            }
+                new FileInfo(SETTINGS_BACKUP_JSON),
+                new FileInfo(SETTINGS_LOCAL_JSON),
+                new FileInfo(SETTINGS_UPDATER_JSON),
+                new FileInfo(SETTINGS_FTP_JSON),
+                new FileInfo(SETTINGS_VERSION_TXT)
+            };
 
-            // Φτιάχνω κρυφό φάκελο ρυθμίσεων στην τοποθεσία εγκατάστασης
-            string folderPath = System.IO.Path.Combine(Config.Instance.LocalAppPath, "settings");
-            if (!Directory.Exists(folderPath))
+            // Ελέγχω αν τα αρχεία υπάρχουν και αν όχι, τα δημιουργώ
+            foreach (var file in fileInfos)
             {
-                Directory.CreateDirectory(folderPath);
-                Logger.Debug("Ο φάκελος ρυθμίσεων δημιουργήθηκε.");
+                if (!file.Exists)
+                {
+                    file.Create().Close();
+                }
             }
-
-            // Ορισμός ιδιοτήτων του φακέλου σε κρυφές
-            File.SetAttributes(folderPath, FileAttributes.Hidden);
-            Logger.Debug("Ο φάκελος ρυθμίσεων έχει γίνει κρυφός.");
         }
+
+        /// <summary>
+        /// Initializes the system tray icon and sets up event handlers for property changes.
+        /// </summary>
         private void SetupTrayIcon()
         {
             _notifyIcon = new NotifyIcon
@@ -86,15 +104,19 @@ namespace Cloud_Backup_Core
                 Visible = false,
                 Text = $"Cloud Backup Service - Ενεργό" // Tooltip text
             };
-            vm.PropertyChanged += (sender, args) =>
+            _mainViewModel.PropertyChanged += (sender, args) =>
             {
                 if (args.PropertyName == nameof(MainViewModel.BackupStatus))
                 {
-                    _notifyIcon.Text = $"Cloud Backup - {vm.BackupStatus}"; 
+                    _notifyIcon.Text = $"Cloud Backup - {_mainViewModel.BackupStatus}"; 
                 }
             };
             _notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
         }
+
+        /// <summary>
+        /// Creates a timer that runs the updater every 300 seconds.
+        /// </summary>  
         private void CreateTimers()
         {
             _cts = new CancellationTokenSource();
@@ -126,6 +148,7 @@ namespace Cloud_Backup_Core
                 }
             }, token);
         }
+
         private void RunUpdater()
         {
             Debug.Print("Updater started");

@@ -15,7 +15,7 @@
 		<!--  Checkbox  -->
 		<CheckBox
 			x:Name="EnableCheckbox"
-			Width="150"
+			MinWidth="100"
 			Margin="0"
 			VerticalContentAlignment="Center"
 			FontSize="14"
@@ -23,12 +23,12 @@
 			<CheckBox.ContentTemplate>
 				<DataTemplate>
 					<TextBox
-						Padding="5 0 0 0"
-						FontSize="12"
-						Width="120"
+						Width="auto"
+						Padding="5,0,0,0"
 						VerticalContentAlignment="Center"
 						Background="Transparent"
 						BorderThickness="0"
+						FontSize="12"
 						Text="{Binding DataContext.SoftwareName, RelativeSource={RelativeSource AncestorType=CheckBox}, UpdateSourceTrigger=PropertyChanged}" />
 				</DataTemplate>
 			</CheckBox.ContentTemplate>
@@ -37,8 +37,9 @@
 		<!--  TextBox  -->
 		<TextBox
 			x:Name="PathTextBox"
-			Width="200"
+			Width="250"
 			Background="White"
+			FontSize="12"
 			IsEnabled="{Binding IsChecked, ElementName=EnableCheckbox}"
 			Text="{Binding LocalPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 	</StackPanel>
