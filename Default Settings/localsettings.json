@@ -1,0 +1,8 @@
+{
+  "ShowLogs": true,
+  "StartWithWindows": false,
+  "DeleteLocalFileAfterUpload": false,
+  "NotifyOnFailedUpload": false,
+  "KeepLocalBackup": false,
+  "MaximumUploadSizeMB": 1000
+}

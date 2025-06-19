@@ -15,15 +15,26 @@ namespace Updater.Client
             {
                 // Define the path to the configuration file
 #if DEBUG
-                string configPath = Path.Combine(@"C:\Users\User\Documents\stelios\Code\Cloud Backup Core\Updater.Client\bin\Debug\net9.0-windows\settings\core.json");
+                string configPath = Path.Combine(AppContext.BaseDirectory, "settings", "core.json");
 #else
                 string configPath = Path.Combine(AppContext.BaseDirectory, "settings", "core.json");
 #endif 
 
                 if (!File.Exists(configPath))
                 {
-                    Console.WriteLine("Configuration file not found.");
-                    return;
+                    Logger.Log("Configuration file not found. Creating default configuration...");
+
+                    // Δημιουργία φακέλου αν δεν υπάρχει
+                    string settingsDir = Path.GetDirectoryName(configPath);
+                    if (!Directory.Exists(settingsDir))
+                        Directory.CreateDirectory(settingsDir);
+
+                    // Serialize & save
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    string defaultJson = JsonSerializer.Serialize(GetDefaultConfig(), options);
+                    File.WriteAllText(configPath, defaultJson);
+
+                    Logger.Log("Default configuration created at: " + configPath);
                 }
 
                 // Read and deserialize the configuration file
@@ -37,7 +48,7 @@ namespace Updater.Client
 
                 if (config == null)
                 {
-                    Console.WriteLine("Failed to deserialize configuration.");
+                    Logger.Error("Failed to deserialize configuration.");
                     return;
                 }
 
@@ -55,6 +66,27 @@ namespace Updater.Client
                 string logFile = Path.Combine(AppContext.BaseDirectory, "updater.log");
                 await File.AppendAllTextAsync(logFile, $"{DateTime.Now}: {ex.Message}\n");
             }
+        }
+
+        private static AppUpdateConfig GetDefaultConfig()
+        {
+            // Default ρύθμιση
+            var defaultConfig = new AppUpdateConfig
+            {
+                AppName = "MyApp",
+                CurrentVersion = "1.0.0",
+                ExecutablePath = "MyApp.exe",
+                BackupBeforeUpdate = true,
+                Ftp = new FtpConfig
+                {
+                    Host = "ftp://127.0.0.1:21",
+                    Username = "user",
+                    Password = "pass",
+                    RemoteManifestPath = "app/manifest.json",
+                    RemoteFilesPath = "app/"
+                }
+            };
+            return defaultConfig;
         }
     }
 }

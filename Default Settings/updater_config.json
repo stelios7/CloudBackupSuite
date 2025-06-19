@@ -1,0 +1,10 @@
+{
+	"FtpServer": "ftp://46.202.172.75",
+	"FtpUsername": "u929365010",
+	"FtpPassword": "lR]17y*V@dCaq@|C",
+	"RemoteUpdatePath": "/domains/stelios_ftp/CloudBackupCore/update",
+	"LocalAppPath": "C:\\Program Files\\CloudBackupCore",
+	"LocalUpdatePath": "C:\\Users\\paokf\\AppData\\Local\\Cloud_Backup_Core\\update",
+	"CurrentVersionFile": "version.txt",
+	"ExecutableName": "Cloud_Backup_Core.exe"
+}

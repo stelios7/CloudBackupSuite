@@ -25,19 +25,20 @@ namespace Updater.Core
 
             if (latestVer <= currentVer)
             {
-                Console.WriteLine("No updates available.");
+                Logger.Log("No updates available.");
                 return;
             }
 
             // Download the update zip file
             string zipPath = Path.Combine(AppContext.BaseDirectory, manifest.ZipFileName ?? string.Empty);
+
             try
             {
                 await _ftp.DownloadFileAsync(manifest.ZipFileName, zipPath);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{ex.Message}");
+                Logger.Error($"{ex.Message}");
             }
             finally
             {
@@ -45,6 +46,7 @@ namespace Updater.Core
                 if (_config.BackupBeforeUpdate)
                 {
                     string backupFolder = Path.Combine(AppContext.BaseDirectory, "backup", DateTime.Now.ToString());
+                    Logger.Log($"Creating backup at: {backupFolder}");
                     Directory.CreateDirectory(backupFolder);
 
                     foreach (var file in Directory.GetFiles(AppContext.BaseDirectory, "*", SearchOption.AllDirectories))
@@ -54,16 +56,20 @@ namespace Updater.Core
                         Directory.CreateDirectory(Path.GetDirectoryName(destPath));
                         File.Copy(file, destPath, true);
                     }
+                    Logger.Log("Backup completed.");
                 }
 
-
-                // Extract the zip file to the application directory
+                // Extract the zip file
+                Logger.Log("Extracting update zip...");
                 ZipFile.ExtractToDirectory(zipPath, AppContext.BaseDirectory, overwriteFiles: true);
                 File.Delete(zipPath);
+                Logger.Log("Extraction complete. Zip file deleted.");
 
 
                 // Restart application
+                Logger.Log($"Starting updated application: {_config.ExecutablePath}");
                 Process.Start(_config.ExecutablePath);
+                Logger.Log("Updater exiting.");
                 Environment.Exit(0);
             }
         }
