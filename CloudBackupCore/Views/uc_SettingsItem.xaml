@@ -15,24 +15,21 @@
 		<!--  Checkbox  -->
 		<CheckBox
 			x:Name="EnableCheckbox"
-			MinWidth="100"
 			Margin="0"
-			VerticalContentAlignment="Center"
+			VerticalAlignment="Center"
 			FontSize="14"
-			IsChecked="{Binding UploadEnabled}">
-			<CheckBox.ContentTemplate>
-				<DataTemplate>
-					<TextBox
-						Width="auto"
-						Padding="5,0,0,0"
-						VerticalContentAlignment="Center"
-						Background="Transparent"
-						BorderThickness="0"
-						FontSize="12"
-						Text="{Binding DataContext.SoftwareName, RelativeSource={RelativeSource AncestorType=CheckBox}, UpdateSourceTrigger=PropertyChanged}" />
-				</DataTemplate>
-			</CheckBox.ContentTemplate>
-		</CheckBox>
+			IsChecked="{Binding UploadEnabled}" />
+
+		<!--  Text="{Binding DataContext.SoftwareName, RelativeSource={RelativeSource AncestorType=CheckBox}, UpdateSourceTrigger=PropertyChanged}"  -->
+		<TextBox
+			MinWidth="80"
+			MaxWidth="120"
+			Margin="5,0,5,0"
+			VerticalContentAlignment="Center"
+			Background="Transparent"
+			BorderThickness="0"
+			FontSize="12"
+			Text="{Binding SoftwareName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 		<!--  TextBox  -->
 		<TextBox

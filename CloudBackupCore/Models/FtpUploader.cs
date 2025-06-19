@@ -144,7 +144,6 @@ namespace Cloud_Backup_Core.Models
         {
             try
             {
-
                 using var client = new AsyncFtpClient(FtpSettings.ServerAddress, FtpSettings.Username, FtpSettings.Password, FtpSettings.Port);
                 await client.Connect();
 

@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\updater.core\\updaterengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|solutionrelative:updater.core\\updaterengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\viewmodels\\settingsftpviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\viewmodels\\settingsftpviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\updater.core\\services\\ftpservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|solutionrelative:updater.core\\services\\ftpservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA945A2B-1380-400E-BED6-722DFB00B03D}|Updater.Client\\Updater.Client.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\updater.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA945A2B-1380-400E-BED6-722DFB00B03D}|Updater.Client\\Updater.Client.csproj|solutionrelative:updater.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\updater.core\\models\\appupdateconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|solutionrelative:updater.core\\models\\appupdateconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,34 +26,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\MainViewModel.cs",
-              "RelativeDocumentMoniker": "CloudBackupCore\\Viewmodels\\MainViewModel.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\MainViewModel.cs",
-              "RelativeToolTip": "CloudBackupCore\\Viewmodels\\MainViewModel.cs",
-              "ViewState": "AgIAAMEAAAAAAAAAAAAAAMsAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T12:47:59.717Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SettingsFtpViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
-              "RelativeDocumentMoniker": "CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
-              "RelativeToolTip": "CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T12:47:55.962Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
@@ -53,6 +35,58 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FtpService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\Services\\FtpService.cs",
+              "RelativeDocumentMoniker": "Updater.Core\\Services\\FtpService.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\Services\\FtpService.cs",
+              "RelativeToolTip": "Updater.Core\\Services\\FtpService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB0AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T13:14:44.619Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppUpdateConfig.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\Models\\AppUpdateConfig.cs",
+              "RelativeDocumentMoniker": "Updater.Core\\Models\\AppUpdateConfig.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\Models\\AppUpdateConfig.cs",
+              "RelativeToolTip": "Updater.Core\\Models\\AppUpdateConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T13:11:17.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UpdaterEngine.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\UpdaterEngine.cs",
+              "RelativeDocumentMoniker": "Updater.Core\\UpdaterEngine.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\UpdaterEngine.cs",
+              "RelativeToolTip": "Updater.Core\\UpdaterEngine.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T13:02:06.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Client\\Program.cs",
+              "RelativeDocumentMoniker": "Updater.Client\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Client\\Program.cs",
+              "RelativeToolTip": "Updater.Client\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T12:43:47.7Z",
+              "EditorCaption": ""
             }
           ]
         }

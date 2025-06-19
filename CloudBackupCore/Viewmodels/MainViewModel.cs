@@ -9,6 +9,8 @@ using Cloud_Backup_Core.Models;
 using System.Windows;
 using Cloud_Backup_Core.Helpers.Settings;
 using Cloud_Backup_Core.Models.Settings;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cloud_Backup_Core.Viewmodels
 {
@@ -19,9 +21,9 @@ namespace Cloud_Backup_Core.Viewmodels
         public RelayCommand OpenBackupSettings_command => new RelayCommand(execute => OpenBackupSettings(), canExecute => true);
         public RelayCommand OpenLocalSettings_command => new RelayCommand(execute => OpenLocalSettings(), canExecute => true);
         public RelayCommand OpenFtpSettings_command => new RelayCommand(execute => OpenFtpSettings(), canExecute => true);
-        public RelayCommand EnterPressed_command => new RelayCommand(execute => EnterPressed(), canExecute => true);
+        //public RelayCommand EnterPressed_command => new RelayCommand(execute => EnterPressed(), canExecute => true);
         public RelayCommand ForceUpload_command => new RelayCommand(execute => ForceUpload(), canExecute => true);
-        public RelayCommand StartSync_command => new RelayCommand(execute => StartSync(), canExecute => true);
+        public RelayCommand StartSync_command => new RelayCommand(async execute => await StartSync(), canExecute => true);
         public RelayCommand PauseSync_command => new RelayCommand(execute => PauseSync(), canExecute => true);
 
         #endregion
@@ -37,6 +39,7 @@ namespace Cloud_Backup_Core.Viewmodels
         private const int SYNC_TIMER = 2;
         private string appVersion;
 
+        [Required]
         public string AppVersion
         {
             get { return appVersion; }
@@ -125,15 +128,10 @@ namespace Cloud_Backup_Core.Viewmodels
             bvm = new SettingsBackupViewModel();
             svm = new SettingsLocalViewModel();
 
-            // Debug.Print("After instance");
-            //string ConfigurationFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "updater_config.json");
-            //ConfigManager = Config.Instance;
-            //ConfigManager.Load(ConfigurationFile);
-
             BackupTimers = new List<DispatcherTimer>();
             RootDirectory = @"C:\Users\paokf\Documents\root_upload";
 
-            StartSync();
+            Task.Run(async () => await StartSync());
             AppVersion = GetAppVersion();
         }
         #endregion
@@ -171,7 +169,7 @@ namespace Cloud_Backup_Core.Viewmodels
         }
 
         private DispatcherTimer timer;
-        private void StartSync()
+        private async Task StartSync()
         {
             var backupTimer = new DispatcherTimer();
             backupTimer.Interval = TimeSpan.FromMinutes(SYNC_TIMER);
@@ -183,9 +181,19 @@ namespace Cloud_Backup_Core.Viewmodels
             timer.Start();
             BackupStatus = BACKUP_STATUS.ONLINE;
 
-            Task.Run(() => SyncNow())
-                .ContinueWith(_ => BackupStatus = BACKUP_STATUS.IDLE);
             Logger.Debug("Start syncing.");
+            try
+            {
+                await Task.Run(() => SyncNow());
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"Sync failed: {ex.Message}");
+            }
+            finally
+            {
+                BackupStatus = BACKUP_STATUS.IDLE;
+            }
         }
 
         private async Task SyncNow()
@@ -194,48 +202,47 @@ namespace Cloud_Backup_Core.Viewmodels
 
             FtpSettings sfm = SettingsFileManager.LoadSettings<FtpSettings>(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", MainWindow.SETTINGS_FTP_JSON));
 
-            if (sfm == null || sfm.UploadSettings == null || sfm.UploadSettings.Count == 0)
+            if (sfm?.UploadSettings == null || sfm.UploadSettings.Count == 0)
             {
                 Logger.Error("No upload settings found.");
                 return;
             }
 
             string user = sfm.RegisteredName;
-            foreach (var item in sfm.UploadSettings)
+            var globalCts = new CancellationTokenSource();
+            UploadTokens.Add(globalCts);
+            
+            BackupStatus = BACKUP_STATUS.UPLOADING;
+
+            foreach (var item in sfm.UploadSettings.Where(s => s.IsUploadEnabled))
             {
-                if (item.IsUploadEnabled)
+                try
                 {
-                    var directoryName = item.Software;
-                    try
-                    {
                     var files = Directory.GetFiles(item.LocalPath);
                     foreach (var file in files)
                     {
-                        BackupStatus = BACKUP_STATUS.UPLOADING;
                         FileBeingUploaded = Path.GetFileName(file);
-                        var cts = new CancellationTokenSource();
-                        UploadTokens.Add(cts);
-                        string ftp_destination = $"{sfm.RootFtpUploadDirectory}/{item.Software}/{user}";
+                        
+                        string ftpDestination = $"/{sfm.RootFtpUploadDirectory}/{item.Software}/{user}".Replace("//", "/");
 
                         try
                         {
-                            await FtpManager.UploadFileFtp(file, ftp_destination, cts.Token);
-                            Logger.Debug($"Upload successful: {item.LocalPath}");
+                            await FtpManager.UploadFileFtp(file, ftpDestination, globalCts.Token);
+                            Logger.Debug($"Upload successful: {file}");
                             FileMover.MoveFile(file); // Move only after successful upload
                         }
                         catch (Exception ex)
                         {
-                            Logger.Debug($"Upload failed: {ex.Message}");
+                            Logger.Error($"Upload failed for {file}: {ex.Message}");
                         }
-                        BackupStatus = BACKUP_STATUS.IDLE;
-                    }
-                    }
-                    catch(Exception ex)
-                    {
-                        Logger.Error($"{ex.Message}");
                     }
                 }
+                catch (Exception ex)
+                {
+                    Logger.Error($"Error processing {item.Software}: {ex.Message}");
+                }
             }
+            BackupStatus = BACKUP_STATUS.IDLE;
         }
 
         public void RootPasswordChanged(object sender, TextChangedEventArgs e)
@@ -257,36 +264,24 @@ namespace Cloud_Backup_Core.Viewmodels
             Logger.Debug(s.ToString());
         }
 
-        private void EnterPressed()
-        {
-            if (RootPassword == "sld" || RootPassword == "SLD")
-            {
-                Logger.Debug("Settings timer started.");
-
-                SettingsWindowFtpView settingsWindow = new SettingsWindowFtpView();
-
-                settingsWindow.ShowDialog();
-            }
-            RootPassword = "";
-        }
-
+        // Opens the settings window for backup settings
         private void OpenBackupSettings()
         {
             OpenSettingsWindow<SettingsBackupView, SettingsBackupViewModel>();
         }
 
-
+        // Opens the local settings window
         private void OpenLocalSettings()
         {
             OpenSettingsWindow<SettingsWindowLocalView, SettingsLocalViewModel>();
         }
 
+        // Opens the FTP settings window
         private void OpenFtpSettings()
         {
             OpenSettingsWindow<SettingsWindowFtpView, SettingsFtpViewModel>();
         }
 
         #endregion
-
     }
 }
