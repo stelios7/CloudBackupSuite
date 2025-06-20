@@ -84,7 +84,7 @@ namespace Cloud_Backup_Core.Viewmodels
             }
         }
 
-        private readonly string FtpSettingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", "ftp_settings.json");
+        private readonly string FtpSettingsFilePath = Path.Combine(AppContext.BaseDirectory, "Settings", "ftp_settings.json");
         public static FtpSettings FtpSettings { get; set; }
 
         public RelayCommand AddUploadSettingCommand => new RelayCommand(execute => AddSetting(), canExecute => CanAddSetting());

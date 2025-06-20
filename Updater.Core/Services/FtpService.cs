@@ -67,6 +67,10 @@ namespace Updater.Core.Services
                     double percent = (double)downloadedBytes / totalBytes * 100;
                     Logger.Log($"Downloading {remoteFile}: {percent:F2}%");
                 }
+                else
+                {
+                    Logger.DownloadUpdate($"Downloading {remoteFile}: {downloadedBytes / 1024} kbytes downloaded...");
+                }
             }
 
             Logger.Log($"Download completed: {remoteFile}");

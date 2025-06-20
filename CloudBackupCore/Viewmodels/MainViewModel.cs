@@ -140,7 +140,7 @@ namespace Cloud_Backup_Core.Viewmodels
 
         private string GetAppVersion()
         {
-            string version = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "version.txt"));
+            string version = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "settings", "version.txt"));
             return $"Version: {version}";
         }
 
@@ -200,7 +200,7 @@ namespace Cloud_Backup_Core.Viewmodels
         {
             ToBeUploaded = new List<string>();
 
-            FtpSettings sfm = SettingsFileManager.LoadSettings<FtpSettings>(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", MainWindow.SETTINGS_FTP_JSON));
+            FtpSettings sfm = SettingsFileManager.LoadSettings<FtpSettings>(Path.Combine(AppContext.BaseDirectory, "settings", MainWindow.SETTINGS_FTP_JSON));
 
             if (sfm?.UploadSettings == null || sfm.UploadSettings.Count == 0)
             {

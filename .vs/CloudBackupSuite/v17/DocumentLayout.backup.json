@@ -1,22 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\",
+  "WorkspaceRootPath": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CA945A2B-1380-400E-BED6-722DFB00B03D}|Updater.Client\\Updater.Client.csproj|c:\\users\\paokf\\documents\\code\\csharp\\_git\\cloudbackupsuite\\updater.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CA945A2B-1380-400E-BED6-722DFB00B03D}|Updater.Client\\Updater.Client.csproj|solutionrelative:updater.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|c:\\users\\paokf\\documents\\code\\csharp\\_git\\cloudbackupsuite\\updater.core\\services\\ftpservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\updater.core\\services\\ftpservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|solutionrelative:updater.core\\services\\ftpservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|c:\\users\\paokf\\documents\\code\\csharp\\_git\\cloudbackupsuite\\updater.core\\updaterengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\updater.core\\updaterengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|solutionrelative:updater.core\\updaterengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|c:\\users\\paokf\\documents\\code\\csharp\\_git\\cloudbackupsuite\\updater.core\\services\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\updater.core\\services\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|solutionrelative:updater.core\\services\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA945A2B-1380-400E-BED6-722DFB00B03D}|Updater.Client\\Updater.Client.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\updater.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA945A2B-1380-400E-BED6-722DFB00B03D}|Updater.Client\\Updater.Client.csproj|solutionrelative:updater.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\updater.core\\services\\filereplacer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{736B3DB8-E579-49AD-8A54-455E378248E3}|Updater.Core\\Updater.Core.csproj|solutionrelative:updater.core\\services\\filereplacer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,62 +38,88 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "UpdaterEngine.cs",
-              "DocumentMoniker": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\Updater.Core\\UpdaterEngine.cs",
-              "RelativeDocumentMoniker": "Updater.Core\\UpdaterEngine.cs",
-              "ToolTip": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\Updater.Core\\UpdaterEngine.cs",
-              "RelativeToolTip": "Updater.Core\\UpdaterEngine.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABwAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T18:57:52.085Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "Logger.cs",
-              "DocumentMoniker": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\Updater.Core\\Services\\Logger.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\Services\\Logger.cs",
               "RelativeDocumentMoniker": "Updater.Core\\Services\\Logger.cs",
-              "ToolTip": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\Updater.Core\\Services\\Logger.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\Services\\Logger.cs",
               "RelativeToolTip": "Updater.Core\\Services\\Logger.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAgwD4AAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACIAAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T18:45:59.985Z",
+              "WhenOpened": "2025-06-20T08:24:57.457Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "FtpService.cs",
-              "DocumentMoniker": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\Updater.Core\\Services\\FtpService.cs",
-              "RelativeDocumentMoniker": "Updater.Core\\Services\\FtpService.cs",
-              "ToolTip": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\Updater.Core\\Services\\FtpService.cs",
-              "RelativeToolTip": "Updater.Core\\Services\\FtpService.cs",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAQwF4AAABjAAAAAAAAAA==",
+              "Title": "UpdaterEngine.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\UpdaterEngine.cs",
+              "RelativeDocumentMoniker": "Updater.Core\\UpdaterEngine.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\UpdaterEngine.cs",
+              "RelativeToolTip": "Updater.Core\\UpdaterEngine.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAIwBYAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T16:58:08.826Z",
+              "WhenOpened": "2025-06-20T06:48:10.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FileReplacer.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\Services\\FileReplacer.cs",
+              "RelativeDocumentMoniker": "Updater.Core\\Services\\FileReplacer.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\Services\\FileReplacer.cs",
+              "RelativeToolTip": "Updater.Core\\Services\\FileReplacer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T07:56:07.61Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\Updater.Client\\Program.cs",
-              "RelativeDocumentMoniker": "Updater.Client\\Program.cs",
-              "ToolTip": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\Updater.Client\\Program.cs",
-              "RelativeToolTip": "Updater.Client\\Program.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAewCQAAABCAAAAAAAAAA==",
+              "Title": "FtpService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\Services\\FtpService.cs",
+              "RelativeDocumentMoniker": "Updater.Core\\Services\\FtpService.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Core\\Services\\FtpService.cs",
+              "RelativeToolTip": "Updater.Core\\Services\\FtpService.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAIwCgAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T16:40:27.022Z",
+              "WhenOpened": "2025-06-20T07:56:04.123Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Client\\Program.cs",
+              "RelativeDocumentMoniker": "Updater.Client\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Client\\Program.cs",
+              "RelativeToolTip": "Updater.Client\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T06:47:56.578Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\MainWindow.xaml.cs",
+              "RelativeToolTip": "CloudBackupCore\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAIwL8AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T06:29:58.295Z",
               "EditorCaption": ""
             }
           ]
