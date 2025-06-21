@@ -1,5 +1,5 @@
 {
-  "latestVersion": "1.1.0",
-  "changelog": "Νέα χαρακτηριστικά + διορθώσεις.",
-  "zipFileName": "update_package.zip"
+  "LatestVersion": "1.0.0",
+  "Changelog": "Δοκιμαστικο commit για το mygit bash",
+  "ZipFileName": "update_package.zip"
 }
