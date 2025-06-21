@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 using System.Windows;
 using Updater.Core;
 using Updater.Core.Models;
@@ -9,17 +10,19 @@ namespace Updater.Client
 {
     internal class Program
     {
-        static async Task Main(string[] args)
-        {
-            try
-            {
-                // Define the path to the configuration file
+        // Define the path to the configuration file
 #if DEBUG
-                string configPath = Path.Combine(AppContext.BaseDirectory, "settings", "core.json");
+        private static readonly string configPath = Path.Combine(AppContext.BaseDirectory, "settings", "updater", "core.json");
 #else
-                string configPath = Path.Combine(AppContext.BaseDirectory, "settings", "core.json");
+        private static readonly string configPath = Path.Combine(AppContext.BaseDirectory, "settings", "updater", "core.json");
 #endif 
 
+        static async Task Main(string[] args)
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            try
+            {
                 if (!File.Exists(configPath))
                 {
                     Logger.Log("Configuration file not found. Creating default configuration...");
@@ -54,7 +57,6 @@ namespace Updater.Client
 
                 // Initialize the FTP service with the configuration
                 IFtpService ftp = new FtpService(config.Ftp);
-
 
                 // Create the updater engine with the configuration and FTP service
                 var updater = new UpdaterEngine(config, ftp);
