@@ -99,9 +99,24 @@ namespace Updater.Core
                 }
 
                 // Restart application
-                Logger.Log($"Starting updated application: {_config.ExecutablePath}");
-                Process.Start(_config.ExecutablePath);
-                Logger.Log("Updater exiting.");
+                try
+                {
+                    Logger.Log($"Starting updated application: {_config.ExecutablePath}");
+                    string exePath = Path.Combine(AppContext.BaseDirectory, _config.ExecutablePath);
+                    var psi = new ProcessStartInfo
+                    {
+                        FileName = exePath,
+                        UseShellExecute = true,
+                        Verb = "runas" // Αυτό ζητά προβιβασμό δικαιωμάτων
+                    };
+                    Process.Start(psi);
+                    Logger.Log("Updater exiting.");
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error($"Failed to start updated application: {ex.Message}");
+                    throw;
+                }
                 Environment.Exit(0);
             }
             catch (Exception ex)

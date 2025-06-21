@@ -11,3 +11,6 @@ obj/
 
 # Logs
 *.log
+
+# Publish folders
+publish/

@@ -70,4 +70,8 @@
     <Folder Include="Settings\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Updater.Core\Updater.Core.csproj" />
+  </ItemGroup>
+
 </Project>

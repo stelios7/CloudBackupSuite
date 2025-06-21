@@ -11,6 +11,9 @@ using Cloud_Backup_Core.Helpers.Settings;
 using Cloud_Backup_Core.Models.Settings;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using Updater.Core.Models;
 
 namespace Cloud_Backup_Core.Viewmodels
 {
@@ -140,7 +143,9 @@ namespace Cloud_Backup_Core.Viewmodels
 
         private string GetAppVersion()
         {
-            string version = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "settings", "version.txt"));
+            string versionFilePath = Path.Combine(AppContext.BaseDirectory, "settings", "updater", "core.json");
+            var core = JsonSerializer.Deserialize<AppUpdateConfig>(File.ReadAllText(versionFilePath));
+            string version = core.CurrentVersion;
             return $"Version: {version}";
         }
 
