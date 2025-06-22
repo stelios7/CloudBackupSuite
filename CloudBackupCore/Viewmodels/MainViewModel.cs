@@ -213,6 +213,16 @@ namespace Cloud_Backup_Core.Viewmodels
                 return;
             }
 
+            if (sfm.RootFtpUploadDirectory == null || sfm.RootFtpUploadDirectory.Length == 0)
+            {
+                sfm.RootFtpUploadDirectory = "/CLOUDBACKUP/UPLOADS";
+            }
+
+            if (sfm.RemoteUpdateDirectory == null || sfm.RemoteUpdateDirectory.Length == 0)
+            {
+                sfm.RemoteUpdateDirectory = "/CLOUDBACKUP/UPDATE";
+            }
+
             string user = sfm.RegisteredName;
             var globalCts = new CancellationTokenSource();
             UploadTokens.Add(globalCts);
