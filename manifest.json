@@ -1,5 +1,5 @@
 {
-  "LatestVersion": "1.0.1",
-  "Changelog": "test auto incr version",
+  "LatestVersion": "1.0.4",
+  "Changelog": "First test for auto incr and updater working",
   "ZipFileName": "update_package.zip"
 }

@@ -84,6 +84,9 @@ namespace Updater.Core
                     Logger.Log("Backup completed.");
                 }
 
+                CloseRunningApp(_config.ExecutablePath);
+
+
                 // Extract the zip file
                 Logger.Log("Extracting update zip...");
                 ZipFile.ExtractToDirectory(zipPath, AppContext.BaseDirectory, overwriteFiles: true);
@@ -124,6 +127,33 @@ namespace Updater.Core
                 Logger.Error($"{ex.Message}");
             }
         }
+
+        public static void CloseRunningApp(string executableName)
+        {
+            try
+            {
+                // Remove extension if passed accidentally
+                string processName = Path.GetFileNameWithoutExtension(executableName);
+
+                var processes = Process.GetProcessesByName(processName);
+
+                foreach (var proc in processes)
+                {
+                    // Optional: Skip self if Updater is same name
+                    if (proc.Id != Process.GetCurrentProcess().Id)
+                    {
+                        Console.WriteLine($"Terminating process {proc.ProcessName} (PID: {proc.Id})");
+                        proc.Kill();
+                        proc.WaitForExit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to close running app: {ex.Message}");
+            }
+        }
+
     }
 
 }
