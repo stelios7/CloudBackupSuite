@@ -118,9 +118,9 @@
 					<Button
 						Command="{Binding ForceUpload_command}"
 						Content="Force Upload"
-						IsEnabled="{Binding BackupStatus, Converter={StaticResource BackupStatusToBoolConverter}}"
+						IsEnabled="{Binding PROGRAM_STATUS, Converter={StaticResource BackupStatusToBoolConverter}}"
 						Style="{StaticResource ResourceKey=PrimaryButton}"
-						Visibility="{Binding BackupStatus, Converter={StaticResource BackupStatusToVisibilityConverter}}" />
+						Visibility="{Binding PROGRAM_STATUS, Converter={StaticResource BackupStatusToVisibilityConverter}}" />
 					<Button
 						Command="{Binding StartSync_command}"
 						Content="Start Sync"
@@ -142,7 +142,7 @@
 				<TextBlock
 					Width="auto"
 					VerticalAlignment="Center"
-					Text="{Binding BackupStatus, Converter={StaticResource BackupStatusToStringConverter}}" />
+					Text="{Binding PROGRAM_STATUS, Converter={StaticResource BackupStatusToStringConverter}}" />
 			</StatusBarItem>
 
 			<StatusBarItem>

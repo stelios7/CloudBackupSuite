@@ -11,6 +11,28 @@ namespace Cloud_Backup_Core.Models
 {
     public class FileMover : BaseSetting
     {
+        #region SINGLETON
+
+        private static FileMover _instance;
+        private static readonly object _lock = new object();
+
+        public static FileMover Instance
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new FileMover();
+                    }
+                    return _instance;
+                }
+            }
+        }
+
+        #endregion
+
         // Files older than this will be deleted
         private const int MAXIMUM_DAYS_TO_KEEP = 7;
 

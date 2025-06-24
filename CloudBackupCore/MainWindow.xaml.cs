@@ -23,21 +23,32 @@ namespace Cloud_Backup_Core
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region DECLARATIONS
+
+        // CancellationTokenSource for managing the updater task
         private CancellationTokenSource _cts;
         private NotifyIcon _notifyIcon;
 
         private const int UPDATE_TIMER = 300;
         private MainViewModel _mainViewModel;
 
-        public static readonly string SETTINGS_BACKUP_JSON = Path.Combine(AppContext.BaseDirectory, "settings", "backup_settings.json");
-        public static readonly string SETTINGS_UPDATER_JSON = Path.Combine(AppContext.BaseDirectory, "settings", "updater_config.json");
-        public static readonly string SETTINGS_LOCAL_JSON = Path.Combine(AppContext.BaseDirectory, "settings", "local_settings.json");
-        public static readonly string SETTINGS_FTP_JSON = Path.Combine(AppContext.BaseDirectory, "settings", "ftp_settings.json");
-        public static readonly string SETTINGS_VERSION_TXT = Path.Combine(AppContext.BaseDirectory, "settings", "version.txt");
+        private readonly string UPDATER_EXE = Path.Combine(AppContext.BaseDirectory, "Updater.Client.exe");
+        private readonly string UPDATER_EXE_DEBUG = "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Client\\bin\\Debug\\net9.0-windows\\updater.client.exe";
+
+        public static readonly string APP_DOMAIN = AppContext.BaseDirectory;
+        public static readonly string TEMP_UPDATE_DIRECTORY = Path.Combine(APP_DOMAIN, "update", "temp");
+        public static readonly string SETTINGS_DIRECTORY = Path.Combine(AppContext.BaseDirectory, "settings");
+
+        public static readonly string SETTINGS_BACKUP_JSON = Path.Combine(SETTINGS_DIRECTORY, "backup_settings.json");
+        public static readonly string SETTINGS_UPDATER_JSON = Path.Combine(SETTINGS_DIRECTORY, "updater_config.json");
+        public static readonly string SETTINGS_LOCAL_JSON = Path.Combine(SETTINGS_DIRECTORY, "local_settings.json");
+        public static readonly string SETTINGS_FTP_JSON = Path.Combine(SETTINGS_DIRECTORY, "ftp_settings.json");
 
         private DispatcherTimer _updateCheckTimer;
         private readonly string _updaterPath = Path.Combine(AppContext.BaseDirectory, "updater.exe");
         private readonly TimeSpan _updateCheckInterval = TimeSpan.FromMinutes(1);
+
+        #endregion
 
         public MainWindow()
         {
@@ -53,6 +64,8 @@ namespace Cloud_Backup_Core
             this.DataContext = _mainViewModel;
         }
 
+        #region FUNCTIONS
+
         private void NotifyIcon_DoubleClick(object sender, EventArgs e)
         {
             Show();
@@ -61,14 +74,11 @@ namespace Cloud_Backup_Core
 
         private void CreateNecessaryData()
         {
-            var appDomain = Path.Combine(AppContext.BaseDirectory);
-            var appDomainSettings = Path.Combine(appDomain, "settings");
-
             // Δημιουργία φακέλου για την ενημέρωση του προγράμματος
             DirectoryInfo[] directoryInfos = new DirectoryInfo[]
             {
-                new DirectoryInfo(Path.Combine(appDomain, "update", "temp")),
-                new DirectoryInfo(Path.Combine(appDomain, "settings"))
+                new DirectoryInfo(TEMP_UPDATE_DIRECTORY),
+                new DirectoryInfo(SETTINGS_DIRECTORY)
             };
             foreach (var di in directoryInfos)
             {
@@ -86,7 +96,6 @@ namespace Cloud_Backup_Core
                 new FileInfo(SETTINGS_LOCAL_JSON),
                 new FileInfo(SETTINGS_UPDATER_JSON),
                 new FileInfo(SETTINGS_FTP_JSON),
-                new FileInfo(SETTINGS_VERSION_TXT)
             };
 
             // Ελέγχω αν τα αρχεία υπάρχουν και αν όχι, τα δημιουργώ
@@ -112,9 +121,9 @@ namespace Cloud_Backup_Core
             };
             _mainViewModel.PropertyChanged += (sender, args) =>
             {
-                if (args.PropertyName == nameof(MainViewModel.BackupStatus))
+                if (args.PropertyName == nameof(MainViewModel.PROGRAM_STATUS))
                 {
-                    _notifyIcon.Text = $"Cloud Backup - {_mainViewModel.BackupStatus}";
+                    _notifyIcon.Text = $"Cloud Backup - {_mainViewModel.PROGRAM_STATUS}";
                 }
             };
             _notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
@@ -159,8 +168,6 @@ namespace Cloud_Backup_Core
             }, token);
         }
 
-        private readonly string UPDATER_EXE = Path.Combine(AppContext.BaseDirectory, "Updater.Client.exe");
-        private readonly string UPDATER_EXE_DEBUG = "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Client\\bin\\Debug\\net9.0-windows\\updater.client.exe";
 
         private void RunUpdater()
         {
@@ -232,4 +239,6 @@ namespace Cloud_Backup_Core
         }
 
     }
+
+    #endregion
 }

@@ -17,7 +17,7 @@ using Updater.Core.Models;
 
 namespace Cloud_Backup_Core.Viewmodels
 {
-    internal class MainViewModel : BaseViewModel
+    public class MainViewModel : BaseViewModel
     {
         #region RELAY COMMANDS
 
@@ -29,6 +29,11 @@ namespace Cloud_Backup_Core.Viewmodels
         public RelayCommand StartSync_command => new RelayCommand(async execute => await StartSync(), canExecute => true);
         public RelayCommand PauseSync_command => new RelayCommand(execute => PauseSync(), canExecute => true);
 
+        private void PauseSync()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region PROPERTIES DECLARATIONS
@@ -39,7 +44,7 @@ namespace Cloud_Backup_Core.Viewmodels
         public FtpUploader FtpManager { get; }
         private List<CancellationTokenSource> UploadTokens { get; set; }
 
-        private const int SYNC_TIMER = 2;
+        private const int UPLOAD_SYNC_TIMER = 2;
         private string appVersion;
 
         [Required]
@@ -74,18 +79,18 @@ namespace Cloud_Backup_Core.Viewmodels
         }
 
 
-        private BACKUP_STATUS backupStatus;
-        public BACKUP_STATUS BackupStatus
+        private STATE_STATUS backupStatus;
+        public STATE_STATUS PROGRAM_STATUS
         {
             get { return backupStatus; }
             set
             {
                 backupStatus = value;
-                OnPropertyChanged(nameof(BackupStatus));
+                OnPropertyChanged(nameof(PROGRAM_STATUS));
             }
         }
 
-        private List<DispatcherTimer> BackupTimers;
+        private List<DispatcherTimer> PROGRAM_TIMERS;
         public string RootDirectory { get; set; }
 
         private double upv;
@@ -111,7 +116,7 @@ namespace Cloud_Backup_Core.Viewmodels
                 OnPropertyChanged(RootPassword);
             }
         }
-        public enum BACKUP_STATUS
+        public enum STATE_STATUS
         {
             IDLE,
             ONLINE,
@@ -125,16 +130,19 @@ namespace Cloud_Backup_Core.Viewmodels
         {
             // Debug.Print("Before instance");
             FtpManager = FtpUploader.Instance;
-            BackupStatus = BACKUP_STATUS.IDLE;
+            PROGRAM_STATUS = STATE_STATUS.IDLE;
             UploadTokens = new List<CancellationTokenSource>();
 
             bvm = new SettingsBackupViewModel();
             svm = new SettingsLocalViewModel();
 
-            BackupTimers = new List<DispatcherTimer>();
+            PROGRAM_TIMERS = new List<DispatcherTimer>();
             RootDirectory = @"C:\Users\paokf\Documents\root_upload";
 
-            Task.Run(async () => await StartSync());
+            SyncManager syncManager = new SyncManager(TimeSpan.FromMinutes(UPLOAD_SYNC_TIMER));
+            syncManager.StatusChanged += status => PROGRAM_STATUS = status;
+            syncManager.StartAsync().ConfigureAwait(false);
+
             AppVersion = GetAppVersion();
         }
         #endregion
@@ -143,48 +151,45 @@ namespace Cloud_Backup_Core.Viewmodels
 
         private string GetAppVersion()
         {
+            // Assuming the version file is located in the settings/updater directory
             string versionFilePath = Path.Combine(AppContext.BaseDirectory, "settings", "updater", "core.json");
+
+            if (!File.Exists(versionFilePath))
+            {
+                Logger.Error($"Version file not found: {versionFilePath}");
+                return "Version file not found";
+            }
             var core = JsonSerializer.Deserialize<AppUpdateConfig>(File.ReadAllText(versionFilePath));
             string version = core.CurrentVersion;
             return $"Version: {version}";
         }
 
-        private string SetBackupStatus(BACKUP_STATUS status) => status switch
+        private string SetBackupStatus(STATE_STATUS status) => status switch
         {
-            BACKUP_STATUS.IDLE => "Idle",
-            BACKUP_STATUS.ONLINE => "Online",
+            STATE_STATUS.IDLE => "Idle",
+            STATE_STATUS.ONLINE => "Online",
             _ => "Error"
         };
 
-        private void PauseSync()
-        {
-            foreach (var timer in BackupTimers)
-            {
-                timer.Stop();
-            }
-            BackupTimers.Clear();
-            ToBeUploaded.Clear();
-            foreach (var cts in UploadTokens)
-            {
-                cts.Cancel();
-            }
-            UploadTokens.Clear();
-            BackupStatus = BACKUP_STATUS.IDLE;
-            Logger.Info("Backup paused");
-        }
-
+        
         private DispatcherTimer timer;
         private async Task StartSync()
         {
             var backupTimer = new DispatcherTimer();
-            backupTimer.Interval = TimeSpan.FromMinutes(SYNC_TIMER);
-            BackupTimers.Add(backupTimer);
+            backupTimer.Interval = TimeSpan.FromMinutes(UPLOAD_SYNC_TIMER);
+            PROGRAM_TIMERS.Add(backupTimer);
 
-            var timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMinutes(240);
-            timer.Tick += async (o, s) => await SyncNow();
-            timer.Start();
-            BackupStatus = BACKUP_STATUS.ONLINE;
+            var uploadTimer = new DispatcherTimer();
+            uploadTimer.Interval = TimeSpan.FromMinutes(UPLOAD_SYNC_TIMER);
+            uploadTimer.Tick += async (o, s) => await SyncNow();
+            uploadTimer.Start();
+
+            foreach (var timer in PROGRAM_TIMERS)
+            {
+                timer.Start();
+            }
+
+            PROGRAM_STATUS = STATE_STATUS.ONLINE;
 
             Logger.Debug("Start syncing.");
             try
@@ -197,7 +202,7 @@ namespace Cloud_Backup_Core.Viewmodels
             }
             finally
             {
-                BackupStatus = BACKUP_STATUS.IDLE;
+                PROGRAM_STATUS = STATE_STATUS.IDLE;
             }
         }
 
@@ -227,7 +232,7 @@ namespace Cloud_Backup_Core.Viewmodels
             var globalCts = new CancellationTokenSource();
             UploadTokens.Add(globalCts);
             
-            BackupStatus = BACKUP_STATUS.UPLOADING;
+            PROGRAM_STATUS = STATE_STATUS.UPLOADING;
 
             foreach (var item in sfm.UploadSettings.Where(s => s.IsUploadEnabled))
             {
@@ -257,7 +262,7 @@ namespace Cloud_Backup_Core.Viewmodels
                     Logger.Error($"Error processing {item.Software}: {ex.Message}");
                 }
             }
-            BackupStatus = BACKUP_STATUS.IDLE;
+            PROGRAM_STATUS = STATE_STATUS.IDLE;
         }
 
         public void RootPasswordChanged(object sender, TextChangedEventArgs e)

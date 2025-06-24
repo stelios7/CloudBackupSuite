@@ -13,11 +13,11 @@ namespace Cloud_Backup_Core.Helpers
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is MainViewModel.BACKUP_STATUS status)
+            if (value is MainViewModel.STATE_STATUS status)
             {
                 switch (status)
                 {
-                    case MainViewModel.BACKUP_STATUS.UPLOADING:
+                    case MainViewModel.STATE_STATUS.UPLOADING:
                         return false;
                     default:
                         return true;

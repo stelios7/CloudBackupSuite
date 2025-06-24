@@ -1,10 +1,5 @@
 {
-  "LatestVersion": "1.0.5",
-  "Changelog": "feat(updater): force-close target app before update, fix manifest UTF-8 encoding, and ensure log directory is created
-
-- Terminates running instance of main app to allow safe file replacement
-- Writes manifest.json using UTF-8 with BOM to preserve non-ASCII characters
-- Ensures 'logs' directory is created before writing logs
-",
+  "LatestVersion": "1.0.6",
+  "Changelog": "Test multiline\ncommit message\nin bash",
   "ZipFileName": "update_package.zip"
 }

@@ -34,7 +34,7 @@
 		<!--  TextBox  -->
 		<TextBox
 			x:Name="PathTextBox"
-			Width="250"
+			Width="240"
 			Background="White"
 			FontSize="12"
 			IsEnabled="{Binding IsChecked, ElementName=EnableCheckbox}"
