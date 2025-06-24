@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using Cloud_Backup_Core.Models.Settings;
 
 namespace Cloud_Backup_Core.Helpers
 {
@@ -21,7 +22,17 @@ namespace Cloud_Backup_Core.Helpers
             }
 
             string json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<T>(json) ?? new T(); // Deserialize JSON to object, return new instance if deserialization fails
+
+            // Deserialize JSON to object, return new instance if deserialization fails
+            T obj = JsonConvert.DeserializeObject<T>(json) ?? new T(); 
+
+            if (obj is FtpSettings ftpSettings)
+            {
+                ftpSettings.RootFtpUploadDirectory ??= "/CLOUDBACKUP/UPLOADS";
+                ftpSettings.RemoteUpdateDirectory ??= "/CLOUDBACKUP/UPDATE";
+            }
+
+            return obj;
         }
 
         public static void SaveSettings<T>(string filePath, T settings)

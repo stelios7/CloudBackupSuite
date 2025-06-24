@@ -115,7 +115,7 @@ namespace Cloud_Backup_Core.Viewmodels
 
         public SettingsLocalViewModel()
         {
-            SettingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "local_settings.json");
+            SettingsFilePath = Path.Combine(AppContext.BaseDirectory, "settings", "local_settings.json");
             LoadSettings();
         }
 
@@ -135,7 +135,7 @@ namespace Cloud_Backup_Core.Viewmodels
             LocalSettings.StartWithWindows = StartWithWindows;
         }
 
-        private readonly string LocalSettingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", "local_settings.json");
+        private readonly string LocalSettingsFilePath = Path.Combine(AppContext.BaseDirectory, "Settings", "local_settings.json");
 
         public static LocalSettings LocalSettings { get; private set; }
 

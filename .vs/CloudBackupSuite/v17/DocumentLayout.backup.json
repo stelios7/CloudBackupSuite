@@ -1,14 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\",
+  "WorkspaceRootPath": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\paokf\\documents\\code\\csharp\\_git\\cloudbackupsuite\\cloudbackupcore\\models\\syncmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\models\\syncmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\paokf\\documents\\code\\csharp\\_git\\cloudbackupsuite\\cloudbackupcore\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\paokf\\documents\\code\\csharp\\_git\\cloudbackupsuite\\cloudbackupcore\\viewmodels\\settingsftpviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\viewmodels\\settingsftpviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\paokf\\documents\\code\\csharp\\_git\\cloudbackupsuite\\cloudbackupcore\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|c:\\users\\user\\documents\\stelios\\code\\cloud backup core\\cloudbackupcore\\viewmodels\\settingsftpviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{445B1B88-7B81-B8A9-636D-0B80B2E0BF70}|CloudBackupCore\\Cloud Backup Core.csproj|solutionrelative:cloudbackupcore\\viewmodels\\settingsftpviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\paokf\\AppData\\Local\\Temp\\.vsdbgsrc\\7c0c2bba808e0f2b7a12b62178b5221c12a0421a503777ec5b37acafcb496885\\XamlReader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,41 +29,80 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\MainViewModel.cs",
-              "RelativeDocumentMoniker": "CloudBackupCore\\Viewmodels\\MainViewModel.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\MainViewModel.cs",
-              "RelativeToolTip": "CloudBackupCore\\Viewmodels\\MainViewModel.cs",
-              "ViewState": "AgIAAMEAAAAAAAAAAAAAAMsAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T12:47:59.717Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SettingsFtpViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
-              "RelativeDocumentMoniker": "CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
-              "RelativeToolTip": "CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\CloudBackupCore\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\CloudBackupCore\\MainWindow.xaml.cs",
+              "RelativeToolTip": "CloudBackupCore\\MainWindow.xaml.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAD4vzcAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T12:47:55.962Z",
+              "WhenOpened": "2025-06-24T04:21:20.851Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SettingsFtpViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
+              "ToolTip": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
+              "RelativeToolTip": "CloudBackupCore\\Viewmodels\\SettingsFtpViewModel.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAD4v68AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T04:21:20.864Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SyncManager.cs",
+              "DocumentMoniker": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\CloudBackupCore\\Models\\SyncManager.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Models\\SyncManager.cs",
+              "ToolTip": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\CloudBackupCore\\Models\\SyncManager.cs",
+              "RelativeToolTip": "CloudBackupCore\\Models\\SyncManager.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAQwEIAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-24T03:47:28.602Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\CloudBackupCore\\Viewmodels\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "CloudBackupCore\\Viewmodels\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\paokf\\Documents\\Code\\Csharp\\_GIT\\CloudBackupSuite\\CloudBackupCore\\Viewmodels\\MainViewModel.cs",
+              "RelativeToolTip": "CloudBackupCore\\Viewmodels\\MainViewModel.cs",
+              "ViewState": "AgIAAIAAAAAAAAAAAAD4v48AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T05:28:28.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "XamlReader.cs",
+              "DocumentMoniker": "C:\\Users\\paokf\\AppData\\Local\\Temp\\.vsdbgsrc\\7c0c2bba808e0f2b7a12b62178b5221c12a0421a503777ec5b37acafcb496885\\XamlReader.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\7c0c2bba808e0f2b7a12b62178b5221c12a0421a503777ec5b37acafcb496885\\XamlReader.cs",
+              "ToolTip": "C:\\Users\\paokf\\AppData\\Local\\Temp\\.vsdbgsrc\\7c0c2bba808e0f2b7a12b62178b5221c12a0421a503777ec5b37acafcb496885\\XamlReader.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\7c0c2bba808e0f2b7a12b62178b5221c12a0421a503777ec5b37acafcb496885\\XamlReader.cs [Read Only]",
+              "ViewState": "AgIAAJIBAAAAAAAAAAAQwKIBAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T05:28:31.12Z",
+              "EditorCaption": " [Read Only]"
             }
           ]
         }

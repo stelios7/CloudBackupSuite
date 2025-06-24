@@ -13,6 +13,8 @@ using Shapes = System.Windows.Shapes;
 using System.Windows.Threading;
 using Cloud_Backup_Core.Helpers;
 using Cloud_Backup_Core.Viewmodels;
+using System.Linq.Expressions;
+using System.ComponentModel;
 
 namespace Cloud_Backup_Core
 {
@@ -21,17 +23,32 @@ namespace Cloud_Backup_Core
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region DECLARATIONS
+
+        // CancellationTokenSource for managing the updater task
         private CancellationTokenSource _cts;
         private NotifyIcon _notifyIcon;
 
         private const int UPDATE_TIMER = 300;
         private MainViewModel _mainViewModel;
 
-        public static readonly string SETTINGS_BACKUP_JSON = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "backup_settings.json");
-        public static readonly string SETTINGS_UPDATER_JSON = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "updater_config.json");
-        public static readonly string SETTINGS_LOCAL_JSON = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "local_settings.json");
-        public static readonly string SETTINGS_FTP_JSON = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "ftp_settings.json");
-        public static readonly string SETTINGS_VERSION_TXT = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings", "version.txt");
+        private readonly string UPDATER_EXE = Path.Combine(AppContext.BaseDirectory, "Updater.Client.exe");
+        private readonly string UPDATER_EXE_DEBUG = "C:\\Users\\User\\Documents\\stelios\\Code\\Cloud Backup Core\\Updater.Client\\bin\\Debug\\net9.0-windows\\updater.client.exe";
+
+        public static readonly string APP_DOMAIN = AppContext.BaseDirectory;
+        public static readonly string TEMP_UPDATE_DIRECTORY = Path.Combine(APP_DOMAIN, "update", "temp");
+        public static readonly string SETTINGS_DIRECTORY = Path.Combine(AppContext.BaseDirectory, "settings");
+
+        public static readonly string SETTINGS_BACKUP_JSON = Path.Combine(SETTINGS_DIRECTORY, "backup_settings.json");
+        public static readonly string SETTINGS_UPDATER_JSON = Path.Combine(SETTINGS_DIRECTORY, "updater_config.json");
+        public static readonly string SETTINGS_LOCAL_JSON = Path.Combine(SETTINGS_DIRECTORY, "local_settings.json");
+        public static readonly string SETTINGS_FTP_JSON = Path.Combine(SETTINGS_DIRECTORY, "ftp_settings.json");
+
+        private DispatcherTimer _updateCheckTimer;
+        private readonly string _updaterPath = Path.Combine(AppContext.BaseDirectory, "updater.exe");
+        private readonly TimeSpan _updateCheckInterval = TimeSpan.FromMinutes(1);
+
+        #endregion
 
         public MainWindow()
         {
@@ -47,6 +64,8 @@ namespace Cloud_Backup_Core
             this.DataContext = _mainViewModel;
         }
 
+        #region FUNCTIONS
+
         private void NotifyIcon_DoubleClick(object sender, EventArgs e)
         {
             Show();
@@ -55,14 +74,11 @@ namespace Cloud_Backup_Core
 
         private void CreateNecessaryData()
         {
-            var appDomain = Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
-            var appDomainSettings = Path.Combine(appDomain, "settings");
-
             // Δημιουργία φακέλου για την ενημέρωση του προγράμματος
             DirectoryInfo[] directoryInfos = new DirectoryInfo[]
             {
-                new DirectoryInfo(Path.Combine(appDomain, "update", "temp")),
-                new DirectoryInfo(Path.Combine(appDomain, "settings"))
+                new DirectoryInfo(TEMP_UPDATE_DIRECTORY),
+                new DirectoryInfo(SETTINGS_DIRECTORY)
             };
             foreach (var di in directoryInfos)
             {
@@ -80,7 +96,6 @@ namespace Cloud_Backup_Core
                 new FileInfo(SETTINGS_LOCAL_JSON),
                 new FileInfo(SETTINGS_UPDATER_JSON),
                 new FileInfo(SETTINGS_FTP_JSON),
-                new FileInfo(SETTINGS_VERSION_TXT)
             };
 
             // Ελέγχω αν τα αρχεία υπάρχουν και αν όχι, τα δημιουργώ
@@ -100,23 +115,20 @@ namespace Cloud_Backup_Core
         {
             _notifyIcon = new NotifyIcon
             {
-                Icon = new Icon(System.AppDomain.CurrentDomain.BaseDirectory + @"Resources\Content\cloud_backup.ico"),
+                Icon = new Icon(System.AppContext.BaseDirectory + @"Resources\Content\cloud_backup.ico"),
                 Visible = false,
                 Text = $"Cloud Backup Service - Ενεργό" // Tooltip text
             };
             _mainViewModel.PropertyChanged += (sender, args) =>
             {
-                if (args.PropertyName == nameof(MainViewModel.BackupStatus))
+                if (args.PropertyName == nameof(MainViewModel.PROGRAM_STATUS))
                 {
-                    _notifyIcon.Text = $"Cloud Backup - {_mainViewModel.BackupStatus}"; 
+                    _notifyIcon.Text = $"Cloud Backup - {_mainViewModel.PROGRAM_STATUS}";
                 }
             };
             _notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
         }
 
-        /// <summary>
-        /// Creates a timer that runs the updater every 300 seconds.
-        /// </summary>  
         private void CreateTimers()
         {
             _cts = new CancellationTokenSource();
@@ -124,7 +136,6 @@ namespace Cloud_Backup_Core
 
             Task.Run(async () =>
             {
-                await Task.Delay(2000);
                 while (!token.IsCancellationRequested)
                 {
                     try
@@ -132,12 +143,20 @@ namespace Cloud_Backup_Core
                         // Run updater
                         RunUpdater();
 
-                        // Wait for 20 seconds
-                        await Task.Delay(TimeSpan.FromSeconds(UPDATE_TIMER), token);
+                        while (!token.IsCancellationRequested)
+                        {
+                            await Task.Delay(TimeSpan.FromMinutes(1), token);
+
+                            if (token.IsCancellationRequested)
+                                break;
+
+                            RunUpdater();
+                        }
                     }
                     catch (TaskCanceledException)
                     {
                         // Exit the loop if task is cancelled
+                        Logger.Info("Updater task was cancelled.");
                         break;
                     }
                     catch (Exception ex)
@@ -149,36 +168,45 @@ namespace Cloud_Backup_Core
             }, token);
         }
 
+
         private void RunUpdater()
         {
-            Debug.Print("Updater started");
             // Path to the updater executable
-            string updaterPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "CloudBackupCore", "CloudUpdater.exe");
-            //string updaterPath = "notepad.exe";
+            string updaterPath = UPDATER_EXE;
+#if DEBUG 
+            updaterPath = UPDATER_EXE_DEBUG;
+#endif
 
             // Check if updater exists
             if (!System.IO.File.Exists(updaterPath))
             {
-                Debug.Print("Updater not found.");
+                Logger.Warning("Updater not found.");
                 return;
             }
 
-            // Start the updater as a separate process
-            var processInfo = new ProcessStartInfo
-            {
-                FileName = updaterPath,
-                UseShellExecute = true,  // Required to run as administrator
-                Verb = "runas"           // Run as admin
-            };
-
             try
             {
-                Process.Start(processInfo);
+                var psi = new ProcessStartInfo
+                {
+                    FileName = updaterPath,
+                    WorkingDirectory = Path.GetDirectoryName(updaterPath),
+                    CreateNoWindow = true,
+                    UseShellExecute = false
+                };
+
+                Process.Start(psi);
+                Logger.Info("Updater launched");
             }
             catch (Exception ex)
             {
-                Debug.Print($"Failed to start updater: {ex.Message}");
+                Logger.Error($"Failed to start updater: {ex.Message}");
             }
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            _cts.Cancel();
+            base.OnClosing(e);
         }
 
         // Μπορώ να χειριστώ events Loaded, Closing, Closed
@@ -211,4 +239,6 @@ namespace Cloud_Backup_Core
         }
 
     }
+
+    #endregion
 }

@@ -1,6 +1,7 @@
 ﻿using Cloud_Backup_Core.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,7 @@ namespace Cloud_Backup_Core.Viewmodels
 {
     internal class SettingsControlViewModel : BaseViewModel
     {
-        private RelayCommand ofb_command;
-        public RelayCommand OpenFolderBrowser_command
-        {
-            get { return ofb_command ?? (ofb_command = new RelayCommand(execute => OpenFolderBrowser(), canExecute => true)); }
-        }
+        public RelayCommand OpenFolderBrowser_command => new RelayCommand(execute => OpenFolderBrowser(), canExecute => true);
 
         private void OpenFolderBrowser()
         {
@@ -36,13 +33,8 @@ namespace Cloud_Backup_Core.Viewmodels
                 OnPropertyChanged(nameof(LocalPath));
             }
         }
+
         private string _softwareName;
-
-        public SettingsControlViewModel()
-        {
-
-        }
-
         public string SoftwareName
         {
             get { return _softwareName ?? "Input Software"; }

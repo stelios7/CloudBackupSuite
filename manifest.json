@@ -1,0 +1,5 @@
+{
+  "LatestVersion": "1.0.6",
+  "Changelog": "Test multiline\ncommit message\nin bash",
+  "ZipFileName": "update_package.zip"
+}

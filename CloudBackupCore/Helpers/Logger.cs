@@ -11,7 +11,7 @@ namespace Cloud_Backup_Core.Helpers
     public static class Logger
     {
         private static readonly object _lock = new object();
-        private static string _logDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+        private static string _logDirectory = Path.Combine(AppContext.BaseDirectory, "Logs");
 
         static Logger()
         {

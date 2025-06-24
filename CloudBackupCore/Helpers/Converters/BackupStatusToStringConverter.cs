@@ -13,15 +13,15 @@ namespace Cloud_Backup_Core.Helpers
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value is MainViewModel.BACKUP_STATUS status)
+            if (value is MainViewModel.STATE_STATUS status)
             {
                 switch (status)
                 {
-                    case MainViewModel.BACKUP_STATUS.IDLE:
+                    case MainViewModel.STATE_STATUS.IDLE:
                         return "Idle";
-                    case MainViewModel.BACKUP_STATUS.ONLINE:
+                    case MainViewModel.STATE_STATUS.ONLINE:
                         return "Online";
-                    case MainViewModel.BACKUP_STATUS.UPLOADING:
+                    case MainViewModel.STATE_STATUS.UPLOADING:
                         return "Uploading";
                     default:
                         return "Error";

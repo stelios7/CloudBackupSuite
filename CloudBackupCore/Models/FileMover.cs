@@ -10,7 +10,32 @@ using System.Threading.Tasks;
 namespace Cloud_Backup_Core.Models
 {
     public class FileMover : BaseSetting
-    { 
+    {
+        #region SINGLETON
+
+        private static FileMover _instance;
+        private static readonly object _lock = new object();
+
+        public static FileMover Instance
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new FileMover();
+                    }
+                    return _instance;
+                }
+            }
+        }
+
+        #endregion
+
+        // Files older than this will be deleted
+        private const int MAXIMUM_DAYS_TO_KEEP = 7;
+
         public void MoveFile(string sourcePath)
         {
             try
@@ -32,19 +57,13 @@ namespace Cloud_Backup_Core.Models
 
         private void DeleteOldFiles(string sourcePath)
         {
-            int daysOld = 7; // Files older than this will be deleted
             try
             {
-                foreach (string file in Directory.GetFiles(sourcePath))
-                {
-                    FileInfo fileInfo = new FileInfo(file);
+                var files = Directory.GetFiles(sourcePath).Where(s => File.GetLastAccessTime(s) < DateTime.Now.AddDays(-MAXIMUM_DAYS_TO_KEEP));
 
-                    // Check if the file is older than the specified days
-                    if (fileInfo.LastWriteTime < DateTime.Now.AddDays(-daysOld))
-                    {
-                        Logger.Debug($"Deleting: {fileInfo.FullName}");
-                        fileInfo.Delete();
-                    }
+                foreach (var file in files)
+                {
+                    File.Delete(file);
                 }
 
                Logger.Debug("Cleanup completed.");

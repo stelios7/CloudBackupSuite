@@ -1,0 +1,30 @@
+{
+  "UseDefaultFtpCredentials": true,
+  "ServerAddress": "asdf",
+  "Username": "asdf",
+  "Password": "59489156548",
+  "Port": 21,
+  "UploadSettings": [
+    {
+      "IsUploadEnabled": true,
+      "Software": "Stelios",
+      "LocalPath": "stest"
+    },
+    {
+      "IsUploadEnabled": false,
+      "Software": "Input Software",
+      "LocalPath": null
+    },
+    {
+      "IsUploadEnabled": false,
+      "Software": "testast",
+      "LocalPath": "asdfasf"
+    },
+    {
+      "IsUploadEnabled": false,
+      "Software": "teast",
+      "LocalPath": "asfdasdf"
+    }
+  ],
+  "RegisteredName": "asdf"
+}
