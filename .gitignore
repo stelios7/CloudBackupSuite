@@ -1,6 +1,7 @@
 # Build folders
 bin/
 obj/
+publish/
 
 # User-specific files
 *.user
@@ -11,3 +12,6 @@ obj/
 
 # Logs
 *.log
+
+# Visual Studio
+.vs/
